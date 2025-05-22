@@ -1,64 +1,69 @@
 package logica;
 
 public class ParaProbar {
-	public static void main(String[] args) {
-		// Ejemplo de grilla 4x3 donde la poda sí hace diferencia
-		Grilla g = new Grilla(4, 3);
 
-		if (!Grilla.esGrillaPar(4, 3)) {
+	public static void main(String[] args) {
+		// Crear un tablero de 3x3 (por ejemplo)
+		TableroElectronico tablero = new TableroElectronico(4, 3);
+
+		if (!TableroElectronico.verificarParidadTablero(4, 3)) {
 			System.out.println("La grilla no es válida: el camino mínimo no es par. No puede haber suma 0.");
 			return;
 		}
 
 		// Grilla con muchos +1 y pocos -1, para que la poda descarte ramas imposibles
-		int[][] valores = {
-				{ 1, 1, 1 },
-				{ 1, 1, 1 },
-				{ 1, -1, 1 },
-				{ 1, 1, -1 }
-		};
+		int[][] valores = { { 1, -1, 1 }, { 1, 1, 1 }, { 1, -1, 1 }, { 1, 1, -1 } };
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++) {
-				g.SetearValor(i, j, valores[i][j]);
+				tablero.setearValorTablero(i, j, valores[i][j]);
 			}
 		}
 
-		// --- Ejecución sin poda ---
-		SolverGrilla solver = new SolverGrilla(g);
-		boolean existeSinPoda = solver.resolver(false);
-		System.out.println("\n--- SIN PODA ---");
-		if (existeSinPoda) {
-			System.out.println("Se encontró al menos un camino válido:");
-			for (Integer idx : solver.getCaminosValidos().keySet()) {
-				System.out.print("Camino " + idx + ": ");
-				for (Posicion p : solver.getCaminosValidos().get(idx)) {
-					System.out.print(p + " ");
-				}
-				System.out.println();
-			}
-		} else {
-			System.out.println("No se encontró ningún camino válido.");
-		}
-		System.out.println("Caminos válidos encontrados: " + solver.getCaminosPosibles());
-		System.out.println("Llamadas recursivas: " + solver.getLlamadasRecursivas());
+		// Crear el solver
+		SolverGrilla solver = new SolverGrilla(tablero);
 
-		// --- Ejecución con poda ---
-		SolverGrilla solverPoda = new SolverGrilla(g);
-		boolean existeConPoda = solverPoda.resolver(true);
-		System.out.println("\n--- CON PODA ---");
-		if (existeConPoda) {
-			System.out.println("Se encontró al menos un camino válido:");
-			for (Integer idx : solverPoda.getCaminosValidos().keySet()) {
-				System.out.print("Camino " + idx + ": ");
-				for (Posicion p : solverPoda.getCaminosValidos().get(idx)) {
-					System.out.print(p + " ");
+		// Crear instancias de BackTrack y FuerzaBruta y configurar el tablero
+		BackTrack backTrack = new BackTrack();
+
+		backTrack.setTablero(tablero);
+ 
+		FuerzaBruta fuerzaBruta = new FuerzaBruta();
+		fuerzaBruta.setTablero(tablero);
+
+		// Asignar al solver
+		solver.backTrack = backTrack;
+		solver.fuerzaBruta = fuerzaBruta;
+
+		
+		solver.resolveBacktrack();
+		System.out.println("=== Resolviendo con Backtracking ===");
+		System.out.println("Llamadas recursivas: " + backTrack.getLlamadasRecursivas());
+		System.out.println("Caminos posibles: " + backTrack.getCaminosPosibles());
+
+		
+		
+				for (Integer idx : solver.backTrack.getCaminosValidos().keySet()) {
+					System.out.print("Camino " + idx + ": ");
+					for (Posicion p : solver.backTrack.getCaminosValidos().get(idx)) {
+						System.out.print(p + " ");
+					}
+					System.out.println();
 				}
-				System.out.println();
+		
+		
+		System.out.println("\n=== Resolviendo con Fuerza Bruta ===");
+		solver.resolverFuerzaBruta();
+		System.out.println("Llamadas recursivas: " + fuerzaBruta.getLlamadasRecursivas());
+		System.out.println("Caminos posibles: " + fuerzaBruta.getCaminosPosibles());
+		
+		for (Integer idx : solver.fuerzaBruta.getCaminosValidos().keySet()) {
+			System.out.print("Camino " + idx + ": ");
+			for (Posicion p : solver.fuerzaBruta.getCaminosValidos().get(idx)) {
+				System.out.print(p + " ");
 			}
-		} else {
-			System.out.println("No se encontró ningún camino válido.");
+			System.out.println();
 		}
-		System.out.println("Caminos válidos encontrados: " + solverPoda.getCaminosPosibles());
-		System.out.println("Llamadas recursivas: " + solverPoda.getLlamadasRecursivas());
+		
 	}
 }
