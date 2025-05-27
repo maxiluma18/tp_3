@@ -46,7 +46,10 @@ public class TableroElectronico {
 		caminosValidosFb = caminos;
 	}
 	
-	public void elegirCaminoActual(Integer num) {
+	public void elegirCaminoActualFb(Integer num) {
+		caminoActual = caminosValidosFb.get(num);
+	}
+	public void elegirCaminoActualBt(Integer num) {
 		caminoActual = caminosValidosBt.get(num);
 	}
 	public Posicion obtenerCoordena(Integer num) {
