@@ -35,38 +35,15 @@ public class ParaProbar {
 		solver.backTrack = backTrack;
 		solver.fuerzaBruta = fuerzaBruta;
 
-		
+		solver.resolverFuerzaBruta();
+		System.out.println("=== Resolviendo con Fuerza Bruta ===");
+		System.out.println("tiempo Fuerza Bruta :"+fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta());
+	
 		solver.resolveBacktrack();
-
 		System.out.println("=== Resolviendo con Backtracking ===");
 		System.out.println("tiempo BackTrack :"+backTrack.obtenerTiempoEjecucionBackTrack());
-		System.out.println("Llamadas recursivas: " + backTrack.getLlamadasRecursivas());
-		System.out.println("Caminos posibles: " + backTrack.getCaminosPosibles());
 
 		
-		
-				for (Integer idx : solver.backTrack.getCaminosValidos().keySet()) {
-					System.out.print("Camino " + idx + ": ");
-					for (Posicion p : solver.backTrack.getCaminosValidos().get(idx)) {
-						System.out.print(p + " ");
-					}
-					System.out.println();
-				}
-		
-		solver.resolverFuerzaBruta();
-		System.out.println("\n=== Resolviendo con Fuerza Bruta ===");
-		
-		System.out.println("tiempo Fuerza Bruta :"+fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta());
-		System.out.println("Llamadas recursivas: " + fuerzaBruta.getLlamadasRecursivas());
-		System.out.println("Caminos posibles: " + fuerzaBruta.getCaminosPosibles());
-		
-		for (Integer idx : solver.fuerzaBruta.getCaminosValidos().keySet()) {
-			System.out.print("Camino " + idx + ": ");
-			for (Posicion p : solver.fuerzaBruta.getCaminosValidos().get(idx)) {
-				System.out.print(p + " ");
-			}
-			System.out.println();
-		}
 		
 	}
 }

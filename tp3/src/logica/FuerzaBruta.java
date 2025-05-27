@@ -59,6 +59,7 @@ public class FuerzaBruta {
 		tiempoInicio = System.nanoTime();
 		realizarFuerzaBruta(fila, columna, suma, pasosRestantes);
 		tiempoFinal = System.nanoTime();
+		
 	}
 	private double tiempoEjecucionFuerzaBruta() {
 		return (tiempoFinal - tiempoInicio) / 1_000_000.0;

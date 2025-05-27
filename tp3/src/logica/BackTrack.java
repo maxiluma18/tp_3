@@ -40,7 +40,7 @@ public class BackTrack {
 		if (Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - 1);
 			return;
-		}
+		}else {
 
 		// Movimiento hacia abajo
 		if (tablero.verificarLimitesTablero(fila + 1, columna)) {
@@ -55,7 +55,7 @@ public class BackTrack {
 		}
 
 		caminoActual.remove(caminoActual.size() - 1);
-	}
+	}}
 
 	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes) {
 		tiempoInicio = System.nanoTime();
