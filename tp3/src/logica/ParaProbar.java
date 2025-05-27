@@ -21,7 +21,7 @@ public class ParaProbar {
 		}
 
 		// Crear el solver
-		SolverGrilla solver = new SolverGrilla(tablero);
+		SolverTableroElectronico solver = new SolverTableroElectronico(tablero);
 
 		// Crear instancias de BackTrack y FuerzaBruta y configurar el tablero
 		BackTrack backTrack = new BackTrack();

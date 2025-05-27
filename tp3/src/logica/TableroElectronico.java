@@ -7,36 +7,36 @@ public class TableroElectronico {
 
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
-	private static Grilla tablero;
+	private static Grilla grilla;
 
 	public TableroElectronico(int caminoHorizontal, int caminoVertical) {
-		tablero = new Grilla(caminoHorizontal, caminoVertical);
+		grilla = new Grilla(caminoHorizontal, caminoVertical);
 
 	}
 
 	public boolean verificarLimitesTablero(int caminoHorizontal, int caminoVertical) {
-		return tablero.verificarLimitesGrilla(caminoHorizontal, caminoVertical);
+		return grilla.verificarLimitesGrilla(caminoHorizontal, caminoVertical);
 
 	}
 
 	public int obtenerValorTablero(int caminoHorizontal, int caminoVertical) {
-		return tablero.ObtenerValorGrilla(caminoHorizontal, caminoVertical);
+		return grilla.ObtenerValorGrilla(caminoHorizontal, caminoVertical);
 	}
 
 	public int cantCaminosHorTablero() {
-		return tablero.CantFilasGrilla();
+		return grilla.CantFilasGrilla();
 	}
 
 	public int cantCaminosVertTablero() {
-		return tablero.CantColumnasGrilla();
+		return grilla.CantColumnasGrilla();
 	}
 
 	public void setearValorTablero(int caminoHorizontal, int caminoVertical, int valor) {
-		tablero.SetearValorGrilla(caminoHorizontal, caminoVertical, valor);
+		grilla.SetearValorGrilla(caminoHorizontal, caminoVertical, valor);
 	}
 
 	public static boolean verificarParidadTablero(int caminoHorizontal, int caminoVertical) {
-		return tablero.verificarParidadGrilla(caminoHorizontal, caminoVertical);
+		return grilla.verificarParidadGrilla(caminoHorizontal, caminoVertical);
 	}
 
 	public List<Posicion> obtenerCaminoActual(){

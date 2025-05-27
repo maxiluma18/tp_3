@@ -1,11 +1,11 @@
 package logica;
 
-public class SolverGrilla {
+public class SolverTableroElectronico {
 	private TableroElectronico tablero;
 	BackTrack backTrack;
 	FuerzaBruta fuerzaBruta;
 
-	public SolverGrilla(TableroElectronico tableroo) {
+	public SolverTableroElectronico(TableroElectronico tableroo) {
 		this.tablero = tableroo;
 
 	}
