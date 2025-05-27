@@ -41,7 +41,7 @@ public class TableroUI extends JFrame {
 	 * Create the frame.
 	 */
 	public TableroUI() {
-		 botones = new JButton[4][3];
+		 botones = new JButton[3][4];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 500, 500);
 

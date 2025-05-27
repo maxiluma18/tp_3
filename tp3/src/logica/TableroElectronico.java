@@ -45,4 +45,5 @@ public class TableroElectronico {
 	public Map<Integer,List<Posicion>> obtenerCaminosValidos(){
 		return caminosValidos;
 	}
+	
 }
