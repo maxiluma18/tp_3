@@ -37,7 +37,9 @@ public class ParaProbar {
 
 		
 		solver.resolveBacktrack();
+
 		System.out.println("=== Resolviendo con Backtracking ===");
+		System.out.println("tiempo BackTrack :"+backTrack.obtenerTiempoEjecucionBackTrack());
 		System.out.println("Llamadas recursivas: " + backTrack.getLlamadasRecursivas());
 		System.out.println("Caminos posibles: " + backTrack.getCaminosPosibles());
 
@@ -51,9 +53,10 @@ public class ParaProbar {
 					System.out.println();
 				}
 		
-		
-		System.out.println("\n=== Resolviendo con Fuerza Bruta ===");
 		solver.resolverFuerzaBruta();
+		System.out.println("\n=== Resolviendo con Fuerza Bruta ===");
+		
+		System.out.println("tiempo Fuerza Bruta :"+fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta());
 		System.out.println("Llamadas recursivas: " + fuerzaBruta.getLlamadasRecursivas());
 		System.out.println("Caminos posibles: " + fuerzaBruta.getCaminosPosibles());
 		

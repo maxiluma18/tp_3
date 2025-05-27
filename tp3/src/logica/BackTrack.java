@@ -12,7 +12,7 @@ public class BackTrack {
 	private int caminosPosibles;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
- 
+	long tiempoInicio, tiempoFinal;
 	public BackTrack() {
 		caminoActual = new ArrayList<Posicion>();
 		caminosValidos = new HashMap<Integer, List<Posicion>>();
@@ -58,8 +58,18 @@ public class BackTrack {
 	}
 
 	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes) {
+		tiempoInicio = System.nanoTime();
 		realizarBackTrack(fila, columna, suma, pasosRestantes);
-	}
+		tiempoFinal = System.nanoTime();
+	
+}
+private double tiempoEjecucionBackTrack() {
+	return (tiempoFinal - tiempoInicio) / 1_000_000.0;
+}
+
+public double obtenerTiempoEjecucionBackTrack() {
+	return tiempoEjecucionBackTrack();
+}
 
 	public void setTablero(TableroElectronico tablero) {
 		this.tablero = tablero;

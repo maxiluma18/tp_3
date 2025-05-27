@@ -12,6 +12,7 @@ public class FuerzaBruta {
 	private int caminosPosibles;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
+	long tiempoInicio, tiempoFinal;
 
 	public FuerzaBruta() {
 		caminoActual = new ArrayList<Posicion>();
@@ -20,7 +21,10 @@ public class FuerzaBruta {
 	}
 
 	private void realizarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
-
+		
+	
+		
+		
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
 
@@ -52,9 +56,17 @@ public class FuerzaBruta {
 	}
 
 	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
+		tiempoInicio = System.nanoTime();
 		realizarFuerzaBruta(fila, columna, suma, pasosRestantes);
+		tiempoFinal = System.nanoTime();
+	}
+	private double tiempoEjecucionFuerzaBruta() {
+		return (tiempoFinal - tiempoInicio) / 1_000_000.0;
 	}
 
+	public double obtenerTiempoEjecucionFuerzaBruta() {
+		return tiempoEjecucionFuerzaBruta();
+	}
 	public int getLlamadasRecursivas() {
 		return llamadasRecursivas;
 	}
