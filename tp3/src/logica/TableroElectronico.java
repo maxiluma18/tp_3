@@ -6,12 +6,12 @@ import java.util.Map;
 public class TableroElectronico {
 
 	private List<Posicion> caminoActual;
-	private Map<Integer, List<Posicion>> caminosValidos;
+	private Map<Integer, List<Posicion>> caminosValidosFb;
+	private Map<Integer, List<Posicion>> caminosValidosBt;
 	private static Grilla grilla;
 
 	public TableroElectronico(int caminoHorizontal, int caminoVertical) {
 		grilla = new Grilla(caminoHorizontal, caminoVertical);
-
 	}
 
 	public boolean verificarLimitesTablero(int caminoHorizontal, int caminoVertical) {
@@ -39,11 +39,18 @@ public class TableroElectronico {
 		return grilla.verificarParidadGrilla(caminoHorizontal, caminoVertical);
 	}
 
-	public List<Posicion> obtenerCaminoActual(){
-		return caminoActual;
+	public void CaminosValidosBackTrack(Map<Integer, List<Posicion>> caminos) {
+		caminosValidosBt = caminos;
 	}
-	public Map<Integer,List<Posicion>> obtenerCaminosValidos(){
-		return caminosValidos;
+	public void CaminosValidosFuerzaBruta(Map<Integer, List<Posicion>> caminos) {
+		caminosValidosFb = caminos;
+	}
+	
+	public void elegirCaminoActual(Integer num) {
+		caminoActual = caminosValidosBt.get(num);
+	}
+	public Posicion obtenerCoordena(Integer num) {
+		return caminoActual.get(num);
 	}
 	
 }
