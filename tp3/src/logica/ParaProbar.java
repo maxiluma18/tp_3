@@ -29,8 +29,8 @@ public class ParaProbar {
 		FuerzaBruta fuerzaBruta = new FuerzaBruta();
 
 		// Asignar al solver
-		solver.backTrack = backTrack;
-		solver.fuerzaBruta = fuerzaBruta;
+		solver.obtenerBackTrack(backTrack);
+		solver.obtenerFuerzaBruta(fuerzaBruta);
 
 		solver.resolverFuerzaBruta();
 		System.out.println("=== Resolviendo con Fuerza Bruta ===");

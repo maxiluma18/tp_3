@@ -2,8 +2,8 @@ package logica;
 
 public class SolverRobot {
 	private TableroElectronico tablero;
-	BackTrack backTrack;
-	FuerzaBruta fuerzaBruta;
+	private BackTrack backTrack;
+	private FuerzaBruta fuerzaBruta;
 
 	public SolverRobot(TableroElectronico tableroo) {
 		this.tablero = tableroo;
@@ -26,5 +26,15 @@ public class SolverRobot {
 
 		fuerzaBruta.ejecutarFuerzaBruta(0, 0, valorInicial, pasosTotales, tablero);
 		tablero.CaminosValidosFuerzaBruta(fuerzaBruta.getCaminosValidos());
+	}
+
+	// esto está mal, necesita un clone
+
+	public void obtenerBackTrack(BackTrack backtrack) {
+		this.backTrack = backtrack;
+	}
+
+	public void obtenerFuerzaBruta(FuerzaBruta fuerzaBruta) {
+		this.fuerzaBruta = fuerzaBruta;
 	}
 }
