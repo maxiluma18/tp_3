@@ -1,0 +1,1 @@
+Logica Avanzada, Empezamos interfaz, Tenemos que Cambiar muchas cosas en interfaz. ParaProbar No funciona, solo para test
