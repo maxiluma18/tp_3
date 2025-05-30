@@ -21,15 +21,12 @@ public class ParaProbar {
 		}
 
 		// Crear el solver
-		SolverTableroElectronico solver = new SolverTableroElectronico(tablero);
+		SolverRobot solver = new SolverRobot(tablero);
 
 		// Crear instancias de BackTrack y FuerzaBruta y configurar el tablero
 		BackTrack backTrack = new BackTrack();
 
-		backTrack.setTablero(tablero);
- 
 		FuerzaBruta fuerzaBruta = new FuerzaBruta();
-		fuerzaBruta.setTablero(tablero);
 
 		// Asignar al solver
 		solver.backTrack = backTrack;
@@ -37,13 +34,33 @@ public class ParaProbar {
 
 		solver.resolverFuerzaBruta();
 		System.out.println("=== Resolviendo con Fuerza Bruta ===");
-		System.out.println("tiempo Fuerza Bruta :"+fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta());
-	
-		solver.resolveBacktrack();
-		System.out.println("=== Resolviendo con Backtracking ===");
-		System.out.println("tiempo BackTrack :"+backTrack.obtenerTiempoEjecucionBackTrack());
+		System.out.println("tiempo Fuerza Bruta :" + fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta());
+		System.out.println("Llamadas recursivas: " + fuerzaBruta.getLlamadasRecursivas());
+		System.out.println("Caminos posibles: " + fuerzaBruta.getCaminosPosibles());
 
-		
-		
+		for (Integer idx : fuerzaBruta.getCaminosValidos().keySet()) {
+			System.out.print("Camino " + idx + ": ");
+			for (Posicion p : fuerzaBruta.getCaminosValidos().get(idx)) {
+				System.out.print(p + " ");
+			}
+			System.out.println();
+
+		}
+
+		solver.resolveBacktrack();
+
+		System.out.println("=== Resolviendo con Backtracking ===");
+		System.out.println("tiempo BackTrack :" + backTrack.obtenerTiempoEjecucionBackTrack());
+		System.out.println("Llamadas recursivas: " + backTrack.getLlamadasRecursivas());
+		System.out.println("Caminos posibles: " + backTrack.getCaminosPosibles());
+
+		for (Integer idx : backTrack.getCaminosValidos().keySet()) {
+			System.out.print("Camino " + idx + ": ");
+			for (Posicion p : backTrack.getCaminosValidos().get(idx)) {
+				System.out.print(p + " ");
+			}
+			System.out.println();
+
+		}
 	}
 }

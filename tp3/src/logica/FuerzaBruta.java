@@ -7,14 +7,13 @@ import java.util.Map;
 
 public class FuerzaBruta {
 
-	private TableroElectronico tablero;
 	private int llamadasRecursivas;
 	private int caminosPosibles;
+	private int ajusteIndice = 1;
+	private double tiempoMilisegundos = 1_000_000.0;
+	private long tiempoInicio, tiempoFinal;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
-	long tiempoInicio, tiempoFinal;
-	double tiempoMilisegundos = 1_000_000.0;
-	private int ajusteIndice = 1;
 
 	public FuerzaBruta() {
 		caminoActual = new ArrayList<Posicion>();
@@ -22,7 +21,7 @@ public class FuerzaBruta {
 
 	}
 
-	private void realizarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
+	private void realizarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
@@ -43,21 +42,23 @@ public class FuerzaBruta {
 		// Movimiento hacia abajo
 		if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
 			realizarFuerzaBruta(fila + ajusteIndice, columna,
-					suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice);
+					suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
+					tablero);
 		}
 
 		// Movimiento hacia derecha
 		if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
 			realizarFuerzaBruta(fila, columna + ajusteIndice,
-					suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice);
+					suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
+					tablero);
 		}
 
 		caminoActual.remove(caminoActual.size() - ajusteIndice);
 	}
 
-	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
+	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 		tiempoInicio = System.nanoTime();
-		realizarFuerzaBruta(fila, columna, suma, pasosRestantes);
+		realizarFuerzaBruta(fila, columna, suma, pasosRestantes, tablero);
 		tiempoFinal = System.nanoTime();
 
 	}
@@ -80,10 +81,6 @@ public class FuerzaBruta {
 
 	public Map<Integer, List<Posicion>> getCaminosValidos() {
 		return caminosValidos;
-	}
-
-	public void setTablero(TableroElectronico tablero) {
-		this.tablero = tablero;
 	}
 
 }

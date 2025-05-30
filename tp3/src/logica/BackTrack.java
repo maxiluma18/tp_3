@@ -7,14 +7,13 @@ import java.util.Map;
 
 public class BackTrack {
 
-	private TableroElectronico tablero;
 	private int llamadasRecursivas;
 	private int caminosPosibles;
+	private int ajusteIndice = 1;
+	private double tiempoMilisegundos = 1_000_000.0;
+	private long tiempoInicio, tiempoFinal;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
-	long tiempoInicio, tiempoFinal;
-	double tiempoMilisegundos = 1_000_000.0;
-	private int ajusteIndice = 1;
 
 	public BackTrack() {
 		caminoActual = new ArrayList<Posicion>();
@@ -22,7 +21,7 @@ public class BackTrack {
 
 	}
 
-	private void realizarBackTrack(int fila, int columna, int suma, int pasosRestantes) {
+	private void realizarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
@@ -49,24 +48,24 @@ public class BackTrack {
 			// Movimiento hacia abajo
 			if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
 				realizarBackTrack(fila + ajusteIndice, columna,
-						suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna),
-						pasosRestantes - ajusteIndice);
+						suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
+						tablero);
 			}
 
 			// Movimiento hacia derecha
 			if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
 				realizarBackTrack(fila, columna + ajusteIndice,
-						suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice),
-						pasosRestantes - ajusteIndice);
+						suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
+						tablero);
 			}
 
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 		}
 	}
 
-	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes) {
+	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 		tiempoInicio = System.nanoTime();
-		realizarBackTrack(fila, columna, suma, pasosRestantes);
+		realizarBackTrack(fila, columna, suma, pasosRestantes, tablero);
 		tiempoFinal = System.nanoTime();
 
 	}
@@ -78,10 +77,6 @@ public class BackTrack {
 
 	public double obtenerTiempoEjecucionBackTrack() {
 		return tiempoEjecucionBackTrack();
-	}
-
-	public void setTablero(TableroElectronico tablero) {
-		this.tablero = tablero;
 	}
 
 	public int getLlamadasRecursivas() {
