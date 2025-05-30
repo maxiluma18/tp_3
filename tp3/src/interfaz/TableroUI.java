@@ -29,9 +29,7 @@ public class TableroUI extends JFrame {
 
 		random = new Random();
 		int x = 3;  //harcodeado aproposito para que siempre sume uno mas al X y sea par
-		;// de 1 a 10
-		int y = 3;
-		;
+		int y = 3;  
 		if ((x * y) % 2 != 0) { // ESTO TIENE QUE USAR VERIFICARPARIDADGRILLA, CAMBIAR!!!!!!!!!!!!!!!!!!!!!
 			x++; // Suma una fila
 		}
@@ -68,22 +66,42 @@ public class TableroUI extends JFrame {
 	}
 
 	private JButton[][] Comienzo(JPanel panel, TableroElectronico tablero, int x, int y) {
-		botones = new JButton[x][y];
+	    botones = new JButton[x][y];
 
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
-				int valor = random.nextInt(1) + 1;
-				tablero.setearValorTablero(i, j, valor);
+	    for (int i = 0; i < x; i++) {
+	        for (int j = 0; j < y; j++) {
+	            int valor = random.nextInt(2); // genera 0 o 1
 
-				botones[i][j] = new JButton("");
-				botones[i][j].putClientProperty("x", i);
-				botones[i][j].putClientProperty("y", j);
-				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-				botones[i][j].setEnabled(false);
-				panel.add(botones[i][j]);
-			}
-		}
+	            if (valor == 0) {
+	                valor = -1;
+	            }
 
-		return botones;
+	            tablero.setearValorTablero(i, j, valor);
+
+	            botones[i][j] = new JButton(String.valueOf(valor)); // muestra -1 o 1 como texto
+	            botones[i][j].putClientProperty("x", i); 
+	            botones[i][j].putClientProperty("y", j); 
+	            botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+	            botones[i][j].setEnabled(false);
+	            botones[i][j].setOpaque(true);
+	            botones[i][j].setContentAreaFilled(true);
+
+	            // Colorear fondo según valor
+	            if (valor == 1) {
+	                botones[i][j].setBackground(Color.GREEN);
+	            } else {
+	                botones[i][j].setBackground(Color.RED);
+	            }
+
+	           
+	            botones[i][j].setFont(new Font("Arial", Font.BOLD, 16));
+
+	            panel.add(botones[i][j]);
+	        }
+	    }
+
+	    return botones;
 	}
+
+
 }
