@@ -13,61 +13,63 @@ public class FuerzaBruta {
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
 	long tiempoInicio, tiempoFinal;
+	double tiempoMilisegundos = 1_000_000.0;
+	private int ajusteIndice = 1;
 
 	public FuerzaBruta() {
 		caminoActual = new ArrayList<Posicion>();
 		caminosValidos = new HashMap<Integer, List<Posicion>>();
-		
+
 	}
 
 	private void realizarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
-		
-	
-		
-		
+
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
 
 		// Caso base: llegó al destino
-		if (fila == tablero.cantCaminosHorTablero() - 1 && columna == tablero.cantCaminosVertTablero() - 1) {
+		if (fila == tablero.cantCaminosHorTablero() - ajusteIndice
+				&& columna == tablero.cantCaminosVertTablero() - ajusteIndice) {
 			if (suma == 0 && pasosRestantes == 0) {
 				caminosPosibles++;
-				caminosValidos.put(caminosValidos.size() + 1, new ArrayList<>(caminoActual));
-				caminoActual.remove(caminoActual.size() - 1);
+				caminosValidos.put(caminosValidos.size() + ajusteIndice, new ArrayList<>(caminoActual));
+				caminoActual.remove(caminoActual.size() - ajusteIndice);
 				return;
 			}
-			caminoActual.remove(caminoActual.size() - 1);
+			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
 
 		// Movimiento hacia abajo
-		if (tablero.verificarLimitesTablero(fila + 1, columna)) {
-			realizarFuerzaBruta(fila + 1, columna, suma + tablero.obtenerValorTablero(fila + 1, columna),
-					pasosRestantes - 1);
+		if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
+			realizarFuerzaBruta(fila + ajusteIndice, columna,
+					suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice);
 		}
 
 		// Movimiento hacia derecha
-		if (tablero.verificarLimitesTablero(fila, columna + 1)) {
-			realizarFuerzaBruta(fila, columna + 1, suma + tablero.obtenerValorTablero(fila, columna + 1),
-					pasosRestantes - 1);
+		if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
+			realizarFuerzaBruta(fila, columna + ajusteIndice,
+					suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice);
 		}
 
-		caminoActual.remove(caminoActual.size() - 1);
+		caminoActual.remove(caminoActual.size() - ajusteIndice);
 	}
 
 	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes) {
 		tiempoInicio = System.nanoTime();
 		realizarFuerzaBruta(fila, columna, suma, pasosRestantes);
 		tiempoFinal = System.nanoTime();
-		
+
 	}
+
 	private double tiempoEjecucionFuerzaBruta() {
-		return (tiempoFinal - tiempoInicio) / 1_000_000.0;
+		return (tiempoFinal - tiempoInicio) / tiempoMilisegundos;
 	}
 
 	public double obtenerTiempoEjecucionFuerzaBruta() {
 		return tiempoEjecucionFuerzaBruta();
 	}
+
 	public int getLlamadasRecursivas() {
 		return llamadasRecursivas;
 	}
@@ -79,10 +81,9 @@ public class FuerzaBruta {
 	public Map<Integer, List<Posicion>> getCaminosValidos() {
 		return caminosValidos;
 	}
- 
+
 	public void setTablero(TableroElectronico tablero) {
 		this.tablero = tablero;
 	}
 
-	
 }

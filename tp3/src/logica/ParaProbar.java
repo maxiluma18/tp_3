@@ -3,7 +3,7 @@ package logica;
 public class ParaProbar {
 
 	public static void main(String[] args) {
-		// Crear un tablero de 3x3 (por ejemplo)
+		// Crear un tablero de 4x3 (por ejemplo)
 		TableroElectronico tablero = new TableroElectronico(4, 3);
 
 		if (!TableroElectronico.verificarParidadTablero(4, 3)) {

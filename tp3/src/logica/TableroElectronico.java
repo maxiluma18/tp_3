@@ -15,28 +15,28 @@ public class TableroElectronico {
 	}
 
 	public boolean verificarLimitesTablero(int caminoHorizontal, int caminoVertical) {
-		return grilla.verificarLimitesGrilla(caminoHorizontal, caminoVertical);
+		return grilla.obtenerLimitesGrilla(caminoHorizontal, caminoVertical);
 
 	}
 
 	public int obtenerValorTablero(int caminoHorizontal, int caminoVertical) {
-		return grilla.ObtenerValorGrilla(caminoHorizontal, caminoVertical);
+		return grilla.obtenerValorGrilla(caminoHorizontal, caminoVertical);
 	}
 
 	public int cantCaminosHorTablero() {
-		return grilla.CantFilasGrilla();
+		return grilla.obtenerCantFilasGrilla();
 	}
 
 	public int cantCaminosVertTablero() {
-		return grilla.CantColumnasGrilla();
+		return grilla.obtenerCantColumnasGrilla();
 	}
 
 	public void setearValorTablero(int caminoHorizontal, int caminoVertical, int valor) {
-		grilla.SetearValorGrilla(caminoHorizontal, caminoVertical, valor);
+		grilla.obtenerSetValorGrilla(caminoHorizontal, caminoVertical, valor);
 	}
 
 	public static boolean verificarParidadTablero(int caminoHorizontal, int caminoVertical) {
-		return grilla.verificarParidadGrilla(caminoHorizontal, caminoVertical);
+		return grilla.obtenerVerificacionParidadGrilla(caminoHorizontal, caminoVertical);
 	}
 
 	public void CaminosValidosBackTrack(Map<Integer, List<Posicion>> caminos) {

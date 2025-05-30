@@ -7,28 +7,54 @@ public class Grilla {
 		matriz = new int[fila][columna];
 	}
 
-	public boolean verificarLimitesGrilla(int fila, int columna) {
+	private boolean verificarLimitesGrilla(int fila, int columna) {
 		return fila >= 0 && fila < matriz.length && columna >= 0 && columna < matriz[0].length;
 	}
 
-	public int ObtenerValorGrilla(int fila, int columna) {
+	private int valorGrilla(int fila, int columna) {
 		return matriz[fila][columna];
 	}
 
-	public int CantFilasGrilla() {
+	//cambiar a clone porque no podemos obtener solo la matriz
+	private int cantFilasGrilla() {
 		return matriz.length;
 	}
 
-	public int CantColumnasGrilla() {
+	private int cantColumnasGrilla() {
 		return matriz[0].length;
 	}
 
-	public void SetearValorGrilla(int fila, int columna, int valor) {
+	private void SetearValorGrilla(int fila, int columna, int valor) {
 		matriz[fila][columna] = valor;
 	}
 
-	public boolean verificarParidadGrilla(int filas, int columnas) {
+	private boolean verificarParidadGrilla(int filas, int columnas) {
 		return ((filas + columnas - 1) % 2 == 0);
+	}
+
+	public boolean obtenerLimitesGrilla(int fila, int columna) {
+		return verificarLimitesGrilla(fila, columna);
+	}
+
+	public int obtenerValorGrilla(int fila, int columna) {
+		return valorGrilla(fila, columna);
+
+	}
+
+	public int obtenerCantFilasGrilla() {
+		return cantFilasGrilla();
+	}
+
+	public int obtenerCantColumnasGrilla() {
+		return cantColumnasGrilla();
+	}
+
+	public void obtenerSetValorGrilla(int fila, int columna, int valor) {
+		SetearValorGrilla(fila, columna, valor);
+	}
+
+	public boolean obtenerVerificacionParidadGrilla(int filas, int columnas) {
+		return verificarParidadGrilla(filas, columnas);
 	}
 
 }
