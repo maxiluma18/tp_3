@@ -17,5 +17,15 @@ public class Posicion {
 	public String toString() {
 		return "(" + fila + "," + columna + ")";
 	}
+
+	public int getX() {
+		
+		return fila;
+	}
+
+	public int getY() {
+		// TODO Apéndice de método generado automáticamente
+		return columna;
+	}
 }
 
