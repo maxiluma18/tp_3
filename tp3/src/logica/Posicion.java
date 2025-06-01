@@ -18,13 +18,11 @@ public class Posicion {
 		return "(" + fila + "," + columna + ")";
 	}
 
-	public int getX() {
-		
+	public int getFila() {
 		return fila;
 	}
 
-	public int getY() {
-		// TODO Apéndice de método generado automáticamente
+	public int getColumna() {
 		return columna;
 	}
 }

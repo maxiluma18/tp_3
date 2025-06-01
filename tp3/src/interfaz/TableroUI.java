@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Window;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -17,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import logica.BackTrack;
 import logica.FuerzaBruta;
+import logica.Posicion;
 import logica.SolverRobot;
 import logica.TableroElectronico;
 
@@ -34,8 +37,8 @@ public class TableroUI extends JFrame {
 									//CAMBIAR A LOGICA EL RANDOMIZER
 
 		random = new Random();
-		int x = (random.nextInt(10))+2;
-		int y = (random.nextInt(10))+2;  
+		int x = 10;
+		int y = 11;  
 		if ((x * y) % 2 != 0) { // ESTO TIENE QUE USAR VERIFICARPARIDADGRILLA, CAMBIAR!!!!!!!!!!!!!!!!!!!!!
 			x++; // Suma una fila
 		}
@@ -119,8 +122,21 @@ public class TableroUI extends JFrame {
 	    lblTiempoFB.setText("Tiempo de FB: " + fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta() + " ms");
 	    lblLlamadasFB.setText("Llamadas recursivas de FB: " + fuerzaBruta.getLlamadasRecursivas());
 	    lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
-	
-	
+	    
+	    //Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
+	    Map<Integer, List<Posicion>> caminosValidosFB = fuerzaBruta.getCaminosValidos();
+	    if(caminosValidosFB.size() > 0) {
+	    	List<Posicion> primerCaminoValido = caminosValidosFB.get(1);
+	    	pintarCamino(primerCaminoValido);
+	    }
+
+	}
+	private void pintarCamino(List<Posicion> caminoValido) {
+		for(Posicion p : caminoValido) {
+			int fila = p.getFila();
+			int columna = p.getColumna();
+			botones[fila][columna].setBackground(Color.GREEN);
+		}
 	}
 
 
