@@ -45,7 +45,7 @@ public class TableroUI extends JFrame {
 		tablero = new TableroElectronico(x, y);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 500, 500);
+		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(4, 4, 5, 5));

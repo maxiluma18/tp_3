@@ -41,7 +41,7 @@ public class Menu extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-		JButton btnGrillaAleatoria = new JButton("Grilla Aleatoria");
+		JButton btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TableroUI();
@@ -49,8 +49,15 @@ public class Menu extends JFrame {
 				dispose();
 			}
 		});
-		btnGrillaAleatoria.setBounds(157, 79, 123, 23);
+		JButton btnGrillaCargar = new JButton("Cargar Tablero");
+		btnGrillaCargar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnGrillaAleatoria.setBounds(141, 41, 151, 23);
 		contentPane.add(btnGrillaAleatoria);
-
+		btnGrillaCargar.setBounds(141, 91, 145, 23);
+		contentPane.add(btnGrillaCargar);
 	}
 }
