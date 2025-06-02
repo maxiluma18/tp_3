@@ -2,26 +2,25 @@ package interfaz;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import logica.BackTrack;
 import logica.FuerzaBruta;
 import logica.Posicion;
 import logica.SolverRobot;
 import logica.TableroElectronico;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TableroUI extends JFrame {
 
@@ -32,6 +31,7 @@ public class TableroUI extends JFrame {
 	private TableroElectronico tablero;
 	private JPanel panelEstadisticas;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
+	private JButton btnGraficar;
 
 	public TableroUI() {
 									//CAMBIAR A LOGICA EL RANDOMIZER
@@ -52,11 +52,32 @@ public class TableroUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		//PANEL PARA LOS BOTONES DE ARRIBA 
+		JPanel panelNORTH = new JPanel();
+		panelNORTH.setLayout(null);
+		//aca Seteamos para el tamaño del panel
+		panelNORTH.setPreferredSize(new Dimension(700, 60)); 
+		contentPane.add(panelNORTH, BorderLayout.NORTH);
+		
+		btnGraficar = new JButton("Graficar");
+		btnGraficar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Graficos(tablero);
+				setVisible(true);
+				dispose();
+			}
+		});
+		btnGraficar.setBounds(68, 10, 85, 21);
+		panelNORTH.add(btnGraficar);
+		
+		
+		
 		//GRILLA CREACION
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(x, y, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		setVisible(true);
+		
 		
 		//BLOQUE ESTADISTICAS CREACION
 		panelEstadisticas = new JPanel(new GridLayout(3, 1));
@@ -74,13 +95,11 @@ public class TableroUI extends JFrame {
 		panelEstadisticas.add(lblCaminosBT);
 		panelEstadisticas.add(lblCaminosFB);
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
-
-		
-		
-		
 		
 		botones = crearTablero(panel, tablero, x, y);
+		resolverTablero(tablero);
 	}
+	
 			//ESTE METODO DEBERIA SER LOGICA, O GRAN PARTE DE EL.
 	private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
 	    botones = new JButton[x][y];
@@ -93,8 +112,16 @@ public class TableroUI extends JFrame {
 	            }
 	            tablero.setearValorTablero(i, j, valor);
 	            botones[i][j] = new JButton(String.valueOf(valor)); // muestra -1 o 1 como texto
-	            botones[i][j].putClientProperty("x", i); 
-	            botones[i][j].putClientProperty("y", j); 
+	            
+	            
+	            
+	            // lo QUE HACE ESTO ES GUARDAR COORDENADAS 
+	            // PERO NO SE ESTAN UTILIZANDO 
+	            
+	            //botones[i][j].putClientProperty("x", i); 
+	            //botones[i][j].putClientProperty("y", j); 
+	            
+	            
 	            botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 	            botones[i][j].setEnabled(false);
 	            botones[i][j].setOpaque(true);
@@ -103,7 +130,7 @@ public class TableroUI extends JFrame {
 	            panel.add(botones[i][j]);
 	        }
 	    }
-	    resolverTablero(tablero);
+	    
 	    return botones;
 	}
 	
@@ -126,7 +153,7 @@ public class TableroUI extends JFrame {
 	    //Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
 	    Map<Integer, List<Posicion>> caminosValidosFB = fuerzaBruta.getCaminosValidos();
 	    if(caminosValidosFB.size() > 0) {
-	    	List<Posicion> primerCaminoValido = caminosValidosFB.get(1);
+	    	List<Posicion> primerCaminoValido = caminosValidosFB.get(random.nextInt(caminosValidosFB.size()));
 	    	pintarCamino(primerCaminoValido);
 	    }
 
