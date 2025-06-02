@@ -2,26 +2,24 @@ package interfaz;
 
 
 import javax.swing.JFrame;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import logica.BackTrack;
-import logica.FuerzaBruta;
-import logica.SolverRobot;
-import logica.TableroElectronico;
 
 public class Graficos {
 
 	private JFrame frame;
     private JFreeChart _grafico;
-    private TableroElectronico _tablero;
-	
+	private int _lblTiempoBT;
+	private int _lblTiempoFB;
 	
 
-	public Graficos( TableroElectronico tablero) {
-		this._tablero = tablero;
+	public Graficos( int lblTiempoBt, int lblTiempoFB) {
+		this._lblTiempoBT = lblTiempoBt;
+		this._lblTiempoFB = lblTiempoFB;
 		initialize();
 	}
 
@@ -32,7 +30,7 @@ public class Graficos {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 
-		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion");
+		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion en ms");
 	
 		ChartPanel panel =new ChartPanel(_grafico);
 		 frame.getContentPane().add(panel);
@@ -51,20 +49,9 @@ public class Graficos {
 	}
 
 	    private DefaultCategoryDataset crear_datos() {
-
-	    	//ACA esto Tengo dudas si va en la PARTE LOGICA
 	    	DefaultCategoryDataset  aux =new DefaultCategoryDataset ();
-	    	SolverRobot solver = new SolverRobot(_tablero);
-	    	BackTrack backtrack = new BackTrack();
-	    	FuerzaBruta fuerzaBruta = new FuerzaBruta();
-	    	solver.obtenerFuerzaBruta(fuerzaBruta);
-	    	solver.resolverFuerzaBruta();
-	    	solver.obtenerBackTrack(backtrack);
-	    	solver.resolveBacktrack();
-	    
-	    	
-	    	aux.addValue(fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta(), "Fuerza Bruta", "Algoritmo");
-	    	aux.addValue(backtrack.obtenerTiempoEjecucionBackTrack(), "Backtracking", "Algoritmo");
+	    	aux.addValue(_lblTiempoBT, "Backtracking", "BACKTRACKING");
+	    	aux.addValue(_lblTiempoFB, "Fuerza Bruta", "FUERZA BRUTA");
 	    	return aux;
 	    }
 

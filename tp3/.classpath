@@ -14,5 +14,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfreechart_"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -32,13 +32,16 @@ public class TableroUI extends JFrame {
 	private JPanel panelEstadisticas;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
 	private JButton btnGraficar;
-
+	private int TiempoBt, TiempoFB;
+	private SolverRobot solver;
+    private BackTrack backtrack;
+    private FuerzaBruta fuerzaBruta;
 	public TableroUI() {
 									//CAMBIAR A LOGICA EL RANDOMIZER
 
 		random = new Random();
-		int x = 10;
-		int y = 11;  
+		int x = (random.nextInt(10))+2;
+		int y = (random.nextInt(10))+2;  
 		if ((x * y) % 2 != 0) { // ESTO TIENE QUE USAR VERIFICARPARIDADGRILLA, CAMBIAR!!!!!!!!!!!!!!!!!!!!!
 			x++; // Suma una fila
 		}
@@ -55,6 +58,8 @@ public class TableroUI extends JFrame {
 		//PANEL PARA LOS BOTONES DE ARRIBA 
 		JPanel panelNORTH = new JPanel();
 		panelNORTH.setLayout(null);
+		
+		
 		//aca Seteamos para el tamaño del panel
 		panelNORTH.setPreferredSize(new Dimension(700, 60)); 
 		contentPane.add(panelNORTH, BorderLayout.NORTH);
@@ -62,7 +67,7 @@ public class TableroUI extends JFrame {
 		btnGraficar = new JButton("Graficar");
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Graficos(tablero);
+				new Graficos(TiempoBt, TiempoFB);
 				setVisible(true);
 				dispose();
 			}
@@ -97,7 +102,7 @@ public class TableroUI extends JFrame {
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 		
 		botones = crearTablero(panel, tablero, x, y);
-		resolverTablero(tablero);
+		
 	}
 	
 			//ESTE METODO DEBERIA SER LOGICA, O GRAN PARTE DE EL.
@@ -112,16 +117,6 @@ public class TableroUI extends JFrame {
 	            }
 	            tablero.setearValorTablero(i, j, valor);
 	            botones[i][j] = new JButton(String.valueOf(valor)); // muestra -1 o 1 como texto
-	            
-	            
-	            
-	            // lo QUE HACE ESTO ES GUARDAR COORDENADAS 
-	            // PERO NO SE ESTAN UTILIZANDO 
-	            
-	            //botones[i][j].putClientProperty("x", i); 
-	            //botones[i][j].putClientProperty("y", j); 
-	            
-	            
 	            botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 	            botones[i][j].setEnabled(false);
 	            botones[i][j].setOpaque(true);
@@ -130,23 +125,25 @@ public class TableroUI extends JFrame {
 	            panel.add(botones[i][j]);
 	        }
 	    }
+	    resolverTablero(tablero);
 	    
 	    return botones;
 	}
 	
 	private void resolverTablero(TableroElectronico tablero) {
-	    SolverRobot solver = new SolverRobot(tablero);
-	    BackTrack backtrack = new BackTrack();
-	    FuerzaBruta fuerzaBruta = new FuerzaBruta();
+		solver = new SolverRobot(tablero);
+	    backtrack = new BackTrack();
+	    fuerzaBruta = new FuerzaBruta();
 	    solver.obtenerFuerzaBruta(fuerzaBruta);
 	    solver.resolverFuerzaBruta();
 	    solver.obtenerBackTrack(backtrack);
 	    solver.resolveBacktrack();
-	    
-	    lblTiempoBT.setText("Tiempo de BT: " + backtrack.obtenerTiempoEjecucionBackTrack() + " ms");
+	    TiempoBt = (int) backtrack.obtenerTiempoEjecucionBackTrack();
+	    TiempoFB = (int) fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
+	    lblTiempoBT.setText("Tiempo de BT: " + TiempoBt  + " ms");
 	    lblLlamadasBT.setText("Llamadas recursivas de BT: " + backtrack.getLlamadasRecursivas());
 	    lblCaminosBT.setText("Caminos posibles de BT: " + backtrack.getCaminosPosibles());
-	    lblTiempoFB.setText("Tiempo de FB: " + fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta() + " ms");
+	    lblTiempoFB.setText("Tiempo de FB: " + TiempoFB + " ms");
 	    lblLlamadasFB.setText("Llamadas recursivas de FB: " + fuerzaBruta.getLlamadasRecursivas());
 	    lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
 	    
