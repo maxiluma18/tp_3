@@ -32,7 +32,7 @@ public class TableroUI extends JFrame {
 	private JPanel panelEstadisticas;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
 	private JButton btnGraficar;
-	private int TiempoBt, TiempoFB;
+	private double TiempoBt, TiempoFB;
 	private SolverRobot solver;
     private BackTrack backtrack;
     private FuerzaBruta fuerzaBruta;
@@ -138,8 +138,8 @@ public class TableroUI extends JFrame {
 	    solver.resolverFuerzaBruta();
 	    solver.obtenerBackTrack(backtrack);
 	    solver.resolveBacktrack();
-	    TiempoBt = (int) backtrack.obtenerTiempoEjecucionBackTrack();
-	    TiempoFB = (int) fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
+	    TiempoBt = backtrack.obtenerTiempoEjecucionBackTrack();
+	    TiempoFB = fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
 	    lblTiempoBT.setText("Tiempo de BT: " + TiempoBt  + " ms");
 	    lblLlamadasBT.setText("Llamadas recursivas de BT: " + backtrack.getLlamadasRecursivas());
 	    lblCaminosBT.setText("Caminos posibles de BT: " + backtrack.getCaminosPosibles());

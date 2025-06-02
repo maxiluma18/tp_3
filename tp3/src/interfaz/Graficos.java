@@ -13,13 +13,13 @@ public class Graficos {
 
 	private JFrame frame;
     private JFreeChart _grafico;
-	private int _lblTiempoBT;
-	private int _lblTiempoFB;
+	private double TiempoBT;
+	private double TiempoFB;
 	
 
-	public Graficos( int lblTiempoBt, int lblTiempoFB) {
-		this._lblTiempoBT = lblTiempoBt;
-		this._lblTiempoFB = lblTiempoFB;
+	public Graficos( double TiempoBt, double TiempoFB) {
+		this.TiempoBT = TiempoBt;
+		this.TiempoFB = TiempoFB;
 		initialize();
 	}
 
@@ -50,8 +50,8 @@ public class Graficos {
 
 	    private DefaultCategoryDataset crear_datos() {
 	    	DefaultCategoryDataset  aux =new DefaultCategoryDataset ();
-	    	aux.addValue(_lblTiempoBT, "Backtracking", "BACKTRACKING");
-	    	aux.addValue(_lblTiempoFB, "Fuerza Bruta", "FUERZA BRUTA");
+	    	aux.addValue(TiempoBT, "Backtracking", "BACKTRACKING");
+	    	aux.addValue(TiempoFB, "Fuerza Bruta", "FUERZA BRUTA");
 	    	return aux;
 	    }
 
