@@ -28,10 +28,6 @@ public class Grilla {
 		matriz[fila][columna] = valor;
 	}
 
-	private boolean verificarParidadGrilla(int filas, int columnas) {
-		return ((filas + columnas - 1) % 2 == 0);
-	}
-
 	public boolean obtenerLimitesGrilla(int fila, int columna) {
 		return verificarLimitesGrilla(fila, columna);
 	}
@@ -53,8 +49,5 @@ public class Grilla {
 		SetearValorGrilla(fila, columna, valor);
 	}
 
-	public boolean obtenerVerificacionParidadGrilla(int filas, int columnas) {
-		return verificarParidadGrilla(filas, columnas);
-	}
 
 }

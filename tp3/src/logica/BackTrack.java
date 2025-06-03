@@ -26,7 +26,7 @@ public class BackTrack {
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
 
-		// Caso base: llegó al destino
+		// Caso base: llego al destino
 		if (fila == tablero.cantCaminosHorTablero() - ajusteIndice
 				&& columna == tablero.cantCaminosVertTablero() - ajusteIndice) {
 			if (suma == 0 && pasosRestantes == 0) {
@@ -43,16 +43,16 @@ public class BackTrack {
 		if (Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
-		} else {
+		}
 
-			// Movimiento hacia abajo
+			// Movimiento p abajo
 			if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
 				realizarBackTrack(fila + ajusteIndice, columna,
 						suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
 						tablero);
 			}
 
-			// Movimiento hacia derecha
+			// Movimiento p derecha
 			if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
 				realizarBackTrack(fila, columna + ajusteIndice,
 						suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
@@ -60,7 +60,7 @@ public class BackTrack {
 			}
 
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
-		}
+		
 	}
 
 	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {

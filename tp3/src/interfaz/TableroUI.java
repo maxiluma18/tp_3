@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import logica.BackTrack;
 import logica.FuerzaBruta;
 import logica.Posicion;
+import logica.RandomNumeros;
 import logica.SolverRobot;
 import logica.TableroElectronico;
 import java.awt.event.ActionListener;
@@ -26,7 +26,7 @@ public class TableroUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private Random random;
+	private RandomNumeros random;
 	private JButton[][] botones;
 	private TableroElectronico tablero;
 	private JPanel panelEstadisticas;
@@ -36,15 +36,12 @@ public class TableroUI extends JFrame {
 	private SolverRobot solver;
     private BackTrack backtrack;
     private FuerzaBruta fuerzaBruta;
-	public TableroUI() {
-									//CAMBIAR A LOGICA EL RANDOMIZER
-
-		random = new Random();
-		int x = (random.nextInt(10))+2;
-		int y = (random.nextInt(10))+2;  
-		if ((x * y) % 2 != 0) { // ESTO TIENE QUE USAR VERIFICARPARIDADGRILLA, CAMBIAR!!!!!!!!!!!!!!!!!!!!!
-			x++; // Suma una fila
-		}
+    private Map<Integer, List<Posicion>> caminosValidosFB;
+    public TableroUI() {
+		random = new RandomNumeros();
+		int x = (random.darNumeroAleatorio())+2;
+		int y = (random.darNumeroAleatorio())+2;  							
+		
 		tablero = new TableroElectronico(x, y);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +76,7 @@ public class TableroUI extends JFrame {
 		
 		//GRILLA CREACION
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(x, y, 0, 0));
+		panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		setVisible(true);
 		
@@ -101,7 +98,7 @@ public class TableroUI extends JFrame {
 		panelEstadisticas.add(lblCaminosFB);
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 		
-		botones = crearTablero(panel, tablero, x, y);
+		botones = crearTablero(panel, tablero, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
 		
 	}
 	
@@ -111,7 +108,7 @@ public class TableroUI extends JFrame {
 
 	    for (int i = 0; i < x; i++) {
 	        for (int j = 0; j < y; j++) {
-	            int valor = random.nextInt(2); // genera 0 o 1
+	            int valor = random.darNumeroAleatorio0ò1(2); // genera 0 o 1
 	            if (valor == 0) {
 	                valor = -1;
 	            }
@@ -148,9 +145,9 @@ public class TableroUI extends JFrame {
 	    lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
 	    
 	    //Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
-	    Map<Integer, List<Posicion>> caminosValidosFB = fuerzaBruta.getCaminosValidos();
+	    caminosValidosFB = fuerzaBruta.getCaminosValidos();
 	    if(caminosValidosFB.size() > 0) {
-	    	List<Posicion> primerCaminoValido = caminosValidosFB.get(random.nextInt(caminosValidosFB.size()));
+	    	List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidosFB);
 	    	pintarCamino(primerCaminoValido);
 	    }
 
