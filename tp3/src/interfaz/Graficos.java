@@ -9,11 +9,10 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class Graficos {
+public class Graficos extends JFrame {
 
-	
-	private JFrame frame;
-    private JFreeChart _grafico;
+	private static final long serialVersionUID = 1L;
+	private JFreeChart _grafico;
 	private double TiempoBT;
 	private double TiempoFB;
 	
@@ -21,29 +20,22 @@ public class Graficos {
 	public Graficos( double TiempoBt, double TiempoFB) {
 		this.TiempoBT = TiempoBt;
 		this.TiempoFB = TiempoFB;
-		initialize();
-	}
-
-	
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 200, 200);
-		
-		frame.setAlwaysOnTop(true); 
- 		frame.toFront();            
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		new JFrame();
+		setBounds(100, 100, 200, 200);
+		setAlwaysOnTop(true); 
+		toFront();            
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion en ms");
-
+		
 		ChartPanel panel =new ChartPanel(_grafico);
-		 frame.getContentPane().add(panel);
-		 frame.pack();
-	
-		 frame.validate();
-		 frame.repaint();
-		 frame.setVisible(true);
-	
+		getContentPane().add(panel);
+		pack();
+		validate();
+		repaint();
+		setVisible(true);
+		
 	}
-	
+
 	    private JFreeChart crear_grafico_lineal(String titulo, String primer_variable, String segunda_variable) {
 		DefaultCategoryDataset datos  = crear_datos();
 		
@@ -56,6 +48,6 @@ public class Graficos {
 	    	aux.addValue(TiempoFB, "Fuerza Bruta", "FUERZA BRUTA");
 	    	return aux;
 	    }
-
+	    
 
 }

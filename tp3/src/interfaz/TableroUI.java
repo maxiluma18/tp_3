@@ -38,7 +38,7 @@ public class TableroUI extends JFrame {
 	private BackTrack backtrack;
 	private FuerzaBruta fuerzaBruta;
 	private Map<Integer, List<Posicion>> caminosValidosFB;
-
+	private Graficos grafico;
 
 	public TableroUI() {
 		
@@ -67,11 +67,10 @@ public class TableroUI extends JFrame {
 		btnGraficar = new JButton("Graficar");
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Graficos(TiempoBt, TiempoFB);
-				setVisible(true);
-				
-		
-				
+				if (grafico == null ) {
+					grafico = new Graficos(TiempoBt, TiempoFB);
+					grafico.setVisible(true);
+				}
 			}
 		});
 		btnGraficar.setBounds(68, 10, 85, 21);
@@ -80,9 +79,11 @@ public class TableroUI extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (grafico != null ) {
+					grafico.dispose(); 
+				}
 				Menu frame = new Menu();
 				frame.setVisible(true);
-				
 				dispose();
 			}
 		});
