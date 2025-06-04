@@ -103,30 +103,23 @@ public class TableroUI extends JFrame {
 	}
 	
 			//ESTE METODO DEBERIA SER LOGICA, O GRAN PARTE DE EL.
-	private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
-	    botones = new JButton[x][y];
+    private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
+		botones = new JButton[x][y];
+		int[][] valores = tablero.generarYSetearValoresAleatorios(x, y, random);
 
-	    for (int i = 0; i < x; i++) {
-	        for (int j = 0; j < y; j++) {
-	            int valor = random.darNumeroAleatorio0ò1(2); // genera 0 o 1
-	            if (valor == 0) {
-	                valor = -1;
-	            }
-	            tablero.setearValorTablero(i, j, valor);
-	            botones[i][j] = new JButton(String.valueOf(valor)); // muestra -1 o 1 como texto
-	            botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
-	            botones[i][j].setEnabled(false);
-	            botones[i][j].setOpaque(true);
-	            botones[i][j].setContentAreaFilled(true);
-
-	            panel.add(botones[i][j]);
-	        }
-	    }
-	    resolverTablero(tablero);
-	    
-	    return botones;
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				botones[i][j] = new JButton(String.valueOf(valores[i][j]));
+				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+				botones[i][j].setEnabled(false);
+				botones[i][j].setOpaque(true);
+				botones[i][j].setContentAreaFilled(true);
+				panel.add(botones[i][j]);
+			}
+		}
+		resolverTablero(tablero);
+		return botones;
 	}
-	
 	private void resolverTablero(TableroElectronico tablero) {
 		solver = new SolverRobot(tablero);
 	    backtrack = new BackTrack();

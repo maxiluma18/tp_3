@@ -60,5 +60,17 @@ public class TableroElectronico {
 	public Posicion obtenerCoordena(Integer num) {
 		return caminoActual.get(num);
 	}
-	
+	public int[][] generarYSetearValoresAleatorios(int filas, int columnas, RandomNumeros random) {
+		int[][] valores = new int[filas][columnas];
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
+				int valor = random.darNumeroAleatorio0ò1(2);
+				if (valor == 0)
+					valor = -1;
+				valores[i][j] = valor;
+				setearValorTablero(i, j, valor);
+			}
+		}
+		return valores;
+	}
 }

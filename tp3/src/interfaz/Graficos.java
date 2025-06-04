@@ -28,8 +28,7 @@ public class Graficos {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
-
+		frame.setLocationRelativeTo(null);
 		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion en ms");
 	
 		ChartPanel panel =new ChartPanel(_grafico);
