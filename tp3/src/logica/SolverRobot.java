@@ -7,7 +7,8 @@ public class SolverRobot {
 
 	public SolverRobot(TableroElectronico tableroo) {
 		this.tablero = tableroo;
-
+		this.backTrack = new BackTrack();
+		this.fuerzaBruta = new FuerzaBruta();
 	}
 
 	public void resolveBacktrack() {
@@ -28,13 +29,11 @@ public class SolverRobot {
 		tablero.CaminosValidosFuerzaBruta(fuerzaBruta.getCaminosValidos());
 	}
 
-	// esto está mal, necesita un clone
-
-	public void obtenerBackTrack(BackTrack backtrack) {
-		this.backTrack = backtrack;
+	public BackTrack obtenerBackTrack() {
+		return backTrack;
 	}
 
-	public void obtenerFuerzaBruta(FuerzaBruta fuerzaBruta) {
-		this.fuerzaBruta = fuerzaBruta;
+	public FuerzaBruta obtenerFuerzaBruta() {
+		return fuerzaBruta;
 	}
 }

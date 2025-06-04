@@ -34,14 +34,15 @@ public class TableroUI extends JFrame {
 	private JButton btnGraficar;
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solver;
-    private BackTrack backtrack;
-    private FuerzaBruta fuerzaBruta;
-    private Map<Integer, List<Posicion>> caminosValidosFB;
-    public TableroUI() {
+	private BackTrack backtrack;
+	private FuerzaBruta fuerzaBruta;
+	private Map<Integer, List<Posicion>> caminosValidosFB;
+
+	public TableroUI() {
 		random = new RandomNumeros();
-		int x = (random.darNumeroAleatorio())+2;
-		int y = (random.darNumeroAleatorio())+2;  							
-		
+		int x = (random.darNumeroAleatorio()) + 2;
+		int y = (random.darNumeroAleatorio()) + 2;
+
 		tablero = new TableroElectronico(x, y);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,37 +52,32 @@ public class TableroUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(4, 4, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		//PANEL PARA LOS BOTONES DE ARRIBA 
+
+		// PANEL PARA LOS BOTONES DE ARRIBA
 		JPanel panelNORTH = new JPanel();
 		panelNORTH.setLayout(null);
-		
-		
-		//aca Seteamos para el tamaño del panel
-		panelNORTH.setPreferredSize(new Dimension(700, 60)); 
+
+		// aca Seteamos para el tamaño del panel
+		panelNORTH.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(panelNORTH, BorderLayout.NORTH);
-		
+
 		btnGraficar = new JButton("Graficar");
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Graficos(TiempoBt, TiempoFB);
 				setVisible(true);
-				dispose();
 			}
 		});
 		btnGraficar.setBounds(68, 10, 85, 21);
 		panelNORTH.add(btnGraficar);
-		
-		
-		
-		//GRILLA CREACION
+
+		// GRILLA CREACION
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		setVisible(true);
-		
-		
-		//BLOQUE ESTADISTICAS CREACION
+
+		// BLOQUE ESTADISTICAS CREACION
 		panelEstadisticas = new JPanel(new GridLayout(3, 1));
 		lblTiempoBT = new JLabel("Tiempo de BackTracking: ");
 		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: ");
@@ -97,13 +93,12 @@ public class TableroUI extends JFrame {
 		panelEstadisticas.add(lblCaminosBT);
 		panelEstadisticas.add(lblCaminosFB);
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
-		
+
 		botones = crearTablero(panel, tablero, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
-		
+
 	}
-	
-			//ESTE METODO DEBERIA SER LOGICA, O GRAN PARTE DE EL.
-    private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
+
+	private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
 		botones = new JButton[x][y];
 		int[][] valores = tablero.generarYSetearValoresAleatorios(x, y, random);
 
@@ -120,38 +115,37 @@ public class TableroUI extends JFrame {
 		resolverTablero(tablero);
 		return botones;
 	}
+
 	private void resolverTablero(TableroElectronico tablero) {
 		solver = new SolverRobot(tablero);
-	    backtrack = new BackTrack();
-	    fuerzaBruta = new FuerzaBruta();
-	    solver.obtenerFuerzaBruta(fuerzaBruta);
-	    solver.resolverFuerzaBruta();
-	    solver.obtenerBackTrack(backtrack);
-	    solver.resolveBacktrack();
-	    TiempoBt = backtrack.obtenerTiempoEjecucionBackTrack();
-	    TiempoFB = fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
-	    lblTiempoBT.setText("Tiempo de BT: " + TiempoBt  + " ms");
-	    lblLlamadasBT.setText("Llamadas recursivas de BT: " + backtrack.getLlamadasRecursivas());
-	    lblCaminosBT.setText("Caminos posibles de BT: " + backtrack.getCaminosPosibles());
-	    lblTiempoFB.setText("Tiempo de FB: " + TiempoFB + " ms");
-	    lblLlamadasFB.setText("Llamadas recursivas de FB: " + fuerzaBruta.getLlamadasRecursivas());
-	    lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
-	    
-	    //Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
-	    caminosValidosFB = fuerzaBruta.getCaminosValidos();
-	    if(caminosValidosFB.size() > 0) {
-	    	List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidosFB);
-	    	pintarCamino(primerCaminoValido);
-	    }
+		backtrack = solver.obtenerBackTrack();
+		fuerzaBruta = solver.obtenerFuerzaBruta();
+		solver.resolverFuerzaBruta();
+		solver.resolveBacktrack();
+		TiempoBt = backtrack.obtenerTiempoEjecucionBackTrack();
+		TiempoFB = fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
+		lblTiempoBT.setText("Tiempo de BT: " + TiempoBt + " ms");
+		lblLlamadasBT.setText("Llamadas recursivas de BT: " + backtrack.getLlamadasRecursivas());
+		lblCaminosBT.setText("Caminos posibles de BT: " + backtrack.getCaminosPosibles());
+		lblTiempoFB.setText("Tiempo de FB: " + TiempoFB + " ms");
+		lblLlamadasFB.setText("Llamadas recursivas de FB: " + fuerzaBruta.getLlamadasRecursivas());
+		lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
+
+		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
+		caminosValidosFB = fuerzaBruta.getCaminosValidos();
+		if (caminosValidosFB.size() > 0) {
+			List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidosFB);
+			pintarCamino(primerCaminoValido);
+		}
 
 	}
+
 	private void pintarCamino(List<Posicion> caminoValido) {
-		for(Posicion p : caminoValido) {
+		for (Posicion p : caminoValido) {
 			int fila = p.getFila();
 			int columna = p.getColumna();
 			botones[fila][columna].setBackground(Color.GREEN);
 		}
 	}
-
 
 }
