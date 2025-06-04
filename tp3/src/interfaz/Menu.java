@@ -40,10 +40,18 @@ public class Menu extends JFrame {
 	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
+		
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		
+		
+		
+		
+		//ver la imagen de fondo menu y escalarla y corregirla :)
+		//contentPane = new Fondo("fondomenu_.png");
+	
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
@@ -79,5 +87,6 @@ public class Menu extends JFrame {
 		});
 		btnSalir.setBounds(141, 214, 151, 23);
 		contentPane.add(btnSalir);
+		setContentPane(contentPane);
 	}
 }

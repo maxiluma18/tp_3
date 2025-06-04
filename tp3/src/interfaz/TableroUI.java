@@ -93,6 +93,17 @@ public class TableroUI extends JFrame {
 		panelNORTH.add(btnGraficar);
 		
 		JButton btnVolver = new JButton("Volver");
+		
+		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
+		btnVolver.setIcon(CargarYObtenerImagen("backOpaco_32"));
+		btnVolver.setPressedIcon(CargarYObtenerImagen("back_32"));
+		btnVolver.setContentAreaFilled(false); 
+		btnVolver.setBorderPainted(false);   
+		btnVolver.setFocusPainted(false); 
+		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVolver.setVerticalAlignment(SwingConstants.BOTTOM);
+		
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (grafico != null ) {
@@ -103,12 +114,12 @@ public class TableroUI extends JFrame {
 				dispose();
 			}
 		});
-		btnVolver.setBounds(580, 9, 85, 21);
+		btnVolver.setBounds(350, 0, 85, 60);
 		panelNORTH.add(btnVolver);
 		
 		JLabel CantFilas = new JLabel();
 		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		CantFilas.setBounds(0, 39, 94, 21);
+		CantFilas.setBounds(92, 37, 94, 21);
 		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
 		panelNORTH.add(CantFilas);
 		
@@ -117,6 +128,11 @@ public class TableroUI extends JFrame {
 		CantCol.setBounds(571, 41, 94, 19);
 		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
 		panelNORTH.add(CantCol);
+		
+		Fondo panel_1 = new Fondo("robotComienzoo_64.png");
+		panel_1.setBounds(-9, 0, 70, 60);
+
+		panelNORTH.add(panel_1);
 		
 		
 		// GRILLA CREACION
@@ -127,19 +143,21 @@ public class TableroUI extends JFrame {
 
 		// BLOQUE ESTADISTICAS CREACION
 		panelEstadisticas = new JPanel(new GridLayout(3, 1));
-		lblTiempoBT = new JLabel("Tiempo de BackTracking: ");
 		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: ");
 		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: ");
-
-		panelEstadisticas.add(lblTiempoBT);
 		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: ");
 		panelEstadisticas.add(lblTiempoFB);
 		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: ");
 		panelEstadisticas.add(lblLlamadasBT);
+	
 		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: ");
 		panelEstadisticas.add(lblLlamadasFB);
+		lblTiempoBT = new JLabel("Tiempo de BackTracking: ");
+		
+				panelEstadisticas.add(lblTiempoBT);
 		panelEstadisticas.add(lblCaminosBT);
 		panelEstadisticas.add(lblCaminosFB);
+		
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 
 		botones = crearTablero(panel, tablero, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
@@ -194,7 +212,7 @@ public class TableroUI extends JFrame {
 		for (Posicion p : caminoValido) {
 			int fila = p.getFila();
 			int columna = p.getColumna();
-			botones[fila][columna].setBackground(Color.GRAY);
+			
 			botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
 		}
 	}
