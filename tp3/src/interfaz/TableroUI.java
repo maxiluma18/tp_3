@@ -21,6 +21,7 @@ import logica.SolverRobot;
 import logica.TableroElectronico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class TableroUI extends JFrame {
 
@@ -70,6 +71,29 @@ public class TableroUI extends JFrame {
 		});
 		btnGraficar.setBounds(68, 10, 85, 21);
 		panelNORTH.add(btnGraficar);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu frame = new Menu();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setBounds(580, 9, 85, 21);
+		panelNORTH.add(btnVolver);
+		
+		JLabel CantFilas = new JLabel();
+		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		CantFilas.setBounds(0, 39, 94, 21);
+		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
+		panelNORTH.add(CantFilas);
+		
+		JLabel CantCol = new JLabel("");
+		CantCol.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		CantCol.setBounds(571, 41, 94, 19);
+		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
+		panelNORTH.add(CantCol);
 
 		// GRILLA CREACION
 		JPanel panel = new JPanel();
@@ -147,5 +171,4 @@ public class TableroUI extends JFrame {
 			botones[fila][columna].setBackground(Color.GREEN);
 		}
 	}
-
 }
