@@ -39,13 +39,15 @@ public class TableroUI extends JFrame {
 	private FuerzaBruta fuerzaBruta;
 	private Map<Integer, List<Posicion>> caminosValidosFB;
 
+
 	public TableroUI() {
+		
 		random = new RandomNumeros();
 		int x = (random.darNumeroAleatorio()) + 2;
 		int y = (random.darNumeroAleatorio()) + 2;
 
 		tablero = new TableroElectronico(x, y);
-
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
@@ -67,6 +69,9 @@ public class TableroUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new Graficos(TiempoBt, TiempoFB);
 				setVisible(true);
+				
+		
+				
 			}
 		});
 		btnGraficar.setBounds(68, 10, 85, 21);
@@ -77,6 +82,7 @@ public class TableroUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Menu frame = new Menu();
 				frame.setVisible(true);
+				
 				dispose();
 			}
 		});
@@ -94,7 +100,8 @@ public class TableroUI extends JFrame {
 		CantCol.setBounds(571, 41, 94, 19);
 		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
 		panelNORTH.add(CantCol);
-
+		
+		
 		// GRILLA CREACION
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));

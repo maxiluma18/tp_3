@@ -38,8 +38,11 @@ public class BackTrack {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
-
-		// Poda
+		
+		
+		// Poda, preguntarle al profe si se puede mejorar
+        //Lo que hace es que se fija si el total de la suma es mayor a los pasos restantes, si es asi, corta la
+        //recursividad y no termina
 		if (Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;

@@ -11,6 +11,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Graficos {
 
+	
 	private JFrame frame;
     private JFreeChart _grafico;
 	private double TiempoBT;
@@ -27,9 +28,12 @@ public class Graficos {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 200, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setAlwaysOnTop(true); 
+ 		frame.toFront();            
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion en ms");
-	
+
 		ChartPanel panel =new ChartPanel(_grafico);
 		 frame.getContentPane().add(panel);
 		 frame.pack();
