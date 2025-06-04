@@ -119,7 +119,7 @@ public class TableroUI extends JFrame {
 		
 		JLabel CantFilas = new JLabel();
 		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		CantFilas.setBounds(92, 37, 94, 21);
+		CantFilas.setBounds(571, 11, 94, 21);
 		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
 		panelNORTH.add(CantFilas);
 		
@@ -142,22 +142,8 @@ public class TableroUI extends JFrame {
 		setVisible(true);
 
 		// BLOQUE ESTADISTICAS CREACION
-		panelEstadisticas = new JPanel(new GridLayout(3, 1));
-		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: ");
-		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: ");
-		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: ");
-		panelEstadisticas.add(lblTiempoFB);
-		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: ");
-		panelEstadisticas.add(lblLlamadasBT);
-	
-		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: ");
-		panelEstadisticas.add(lblLlamadasFB);
-		lblTiempoBT = new JLabel("Tiempo de BackTracking: ");
-		
-				panelEstadisticas.add(lblTiempoBT);
-		panelEstadisticas.add(lblCaminosBT);
-		panelEstadisticas.add(lblCaminosFB);
-		
+		panelEstadisticas = new JPanel();
+		panelEstadisticas.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 
 		botones = crearTablero(panel, tablero, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
@@ -180,11 +166,15 @@ public class TableroUI extends JFrame {
 				panel.add(botones[i][j]);
 			}
 		}
-		resolverTablero(tablero);
+		resolverTablero(tablero, panelEstadisticas);
+		
+		Fondo panel_1 = new Fondo("robotComienzoo_64.png");
+		panel_1.setBounds(605, 0, 70, 60);
+		panelEstadisticas.add(panel_1);
 		return botones;
 	}
 
-	private void resolverTablero(TableroElectronico tablero) {
+	private void resolverTablero(TableroElectronico tablero, JPanel estadisticas) {
 		solver = new SolverRobot(tablero);
 		backtrack = solver.obtenerBackTrack();
 		fuerzaBruta = solver.obtenerFuerzaBruta();
@@ -192,12 +182,32 @@ public class TableroUI extends JFrame {
 		solver.resolveBacktrack();
 		TiempoBt = backtrack.obtenerTiempoEjecucionBackTrack();
 		TiempoFB = fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
-		lblTiempoBT.setText("Tiempo de BT: " + TiempoBt + " ms");
-		lblLlamadasBT.setText("Llamadas recursivas de BT: " + backtrack.getLlamadasRecursivas());
-		lblCaminosBT.setText("Caminos posibles de BT: " + backtrack.getCaminosPosibles());
-		lblTiempoFB.setText("Tiempo de FB: " + TiempoFB + " ms");
-		lblLlamadasFB.setText("Llamadas recursivas de FB: " + fuerzaBruta.getLlamadasRecursivas());
-		lblCaminosFB.setText("Caminos posibles de FB: " + fuerzaBruta.getCaminosPosibles());
+		estadisticas.setLayout(null);
+		
+		lblTiempoBT = new JLabel("Tiempo de BackTracking ⏰: " + TiempoBt + " ms");
+		lblTiempoBT.setBounds(23, 5, 265, 14);
+		estadisticas.add(lblTiempoBT);
+		
+		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: " + backtrack.getLlamadasRecursivas());
+		lblLlamadasBT.setBounds(23, 21, 307, 14);
+		estadisticas.add(lblLlamadasBT);
+		
+		
+		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: " + backtrack.getCaminosPosibles());
+		lblCaminosBT.setBounds(23, 35, 307, 14);
+		estadisticas.add(lblCaminosBT);
+		
+		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: " + TiempoFB + " ms");
+		lblTiempoFB.setBounds(358, 5, 246, 14);
+		estadisticas.add(lblTiempoFB);
+		
+		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " +  fuerzaBruta.getLlamadasRecursivas());
+		lblLlamadasFB.setBounds(358, 21, 254, 14);
+		estadisticas.add(lblLlamadasFB);
+		
+		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: "+  fuerzaBruta.getCaminosPosibles());
+		lblCaminosFB.setBounds(358, 35, 251, 14);
+		estadisticas.add(lblCaminosFB);
 
 		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
 		caminosValidosFB = fuerzaBruta.getCaminosValidos();
