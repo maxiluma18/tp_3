@@ -8,6 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import java.awt.Font;
+
 
 public class Menu extends JFrame {
 
@@ -37,10 +41,12 @@ public class Menu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
+		
 		JButton btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -55,9 +61,23 @@ public class Menu extends JFrame {
 				
 			}
 		});
-		btnGrillaAleatoria.setBounds(141, 41, 151, 23);
+		btnGrillaAleatoria.setBounds(141, 106, 151, 23);
 		contentPane.add(btnGrillaAleatoria);
-		btnGrillaCargar.setBounds(141, 91, 145, 23);
+		btnGrillaCargar.setBounds(141, 157, 151, 23);
 		contentPane.add(btnGrillaCargar);
+		
+		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("Optimización de la ruta de un robot");
+		lblNewJgoodiesTitle.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
+		lblNewJgoodiesTitle.setBounds(111, 46, 228, 13);
+		contentPane.add(lblNewJgoodiesTitle);
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnSalir.setBounds(141, 214, 151, 23);
+		contentPane.add(btnSalir);
 	}
 }

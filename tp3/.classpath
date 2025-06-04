@@ -16,5 +16,7 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="jcommon-1.0.17.jar"/>
 	<classpathentry kind="lib" path="jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
+	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

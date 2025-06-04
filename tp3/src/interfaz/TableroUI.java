@@ -8,10 +8,12 @@ import java.awt.Window;
 import java.util.List;
 import java.util.Map;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import logica.BackTrack;
 import logica.FuerzaBruta;
@@ -56,6 +58,8 @@ public class TableroUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
+
+
 		// PANEL PARA LOS BOTONES DE ARRIBA
 		JPanel panelNORTH = new JPanel();
 		panelNORTH.setLayout(null);
@@ -65,15 +69,27 @@ public class TableroUI extends JFrame {
 		contentPane.add(panelNORTH, BorderLayout.NORTH);
 
 		btnGraficar = new JButton("Graficar");
+
+		btnGraficar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico_32"));
+		btnGraficar.setIcon(CargarYObtenerImagen("graficoOpaco_32"));
+		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico_32"));
+		btnGraficar.setContentAreaFilled(false); 
+		btnGraficar.setBorderPainted(false);   
+		btnGraficar.setFocusPainted(false); 
+		btnGraficar.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnGraficar.setVerticalAlignment(SwingConstants.BOTTOM);
+		
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (grafico == null ) {
 					grafico = new Graficos(TiempoBt, TiempoFB);
-					grafico.setVisible(true);
 				}
+				grafico.setVisible(true);
+				
 			}
 		});
-		btnGraficar.setBounds(68, 10, 85, 21);
+		btnGraficar.setBounds(264, 0, 85, 60);
 		panelNORTH.add(btnGraficar);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -136,7 +152,9 @@ public class TableroUI extends JFrame {
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-				botones[i][j] = new JButton(String.valueOf(valores[i][j]));
+				botones[i][j] = new JButton(String.valueOf(valores[i][j]));	
+				botones[i][j].setFont(new Font("Arial", Font.BOLD, 16));
+				botones[i][j].setForeground(Color.BLACK);
 				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 				botones[i][j].setEnabled(false);
 				botones[i][j].setOpaque(true);
@@ -176,7 +194,11 @@ public class TableroUI extends JFrame {
 		for (Posicion p : caminoValido) {
 			int fila = p.getFila();
 			int columna = p.getColumna();
-			botones[fila][columna].setBackground(Color.GREEN);
+			botones[fila][columna].setBackground(Color.GRAY);
+			botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
 		}
+	}
+	private ImageIcon CargarYObtenerImagen(String nombre) {
+		return new ImageIcon(TableroUI.class.getResource("/imagenes/"+nombre+".png"));
 	}
 }
