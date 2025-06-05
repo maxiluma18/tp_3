@@ -169,7 +169,7 @@ public class TableroUI extends JFrame {
 
 	private void resolverTablero(TableroElectronico tablero, JPanel estadisticas) {
 		solverNoPoda = new SolverRobot(tablero);
-		solverNoPoda.resolverAlgoritmoNoPoda();
+		solverNoPoda.resolverAlgoritmo(false);
 		algoritmoNoPoda = solverNoPoda.obtenerSolver();
 		TiempoFB = algoritmoNoPoda.obtenerTiempoEjecucionAlgoritmo();
 		
@@ -187,7 +187,7 @@ public class TableroUI extends JFrame {
 		estadisticas.add(lblCaminosFB);
 
 		solverPoda = new SolverRobot(tablero);
-		solverPoda.resolverAlgoritmoPoda();
+		solverPoda.resolverAlgoritmo(true);
 		algoritmoPoda = solverPoda.obtenerSolver();
 		TiempoBt = algoritmoPoda.obtenerTiempoEjecucionAlgoritmo();
 		estadisticas.setLayout(null);

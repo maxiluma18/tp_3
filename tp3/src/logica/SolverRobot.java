@@ -9,22 +9,14 @@ public class SolverRobot {
 		logicaSolver = new LogicaSolver();
 	}
 
-	public void resolverAlgoritmoPoda() {
+	public void resolverAlgoritmo(boolean usarPoda) {
 
 		int valorInicial = tablero.obtenerValorTablero(0, 0);
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, true);
+		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, usarPoda);
 	}
 
-	public void resolverAlgoritmoNoPoda() {
-
-		int valorInicial = tablero.obtenerValorTablero(0, 0);
-		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
-
-		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, false);
-	}
-	
 	public LogicaSolver obtenerSolver() {
 		return logicaSolver;
 	}
