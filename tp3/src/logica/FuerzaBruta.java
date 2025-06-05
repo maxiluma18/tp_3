@@ -8,7 +8,6 @@ import java.util.Map;
 public class FuerzaBruta {
 
 	private int llamadasRecursivas;
-	private int caminosPosibles;
 	private int ajusteIndice = 1;
 	private double tiempoMilisegundos = 1_000_000.0;
 	private long tiempoInicio, tiempoFinal;
@@ -30,7 +29,6 @@ public class FuerzaBruta {
 		if (fila == tablero.cantCaminosHorTablero() - ajusteIndice
 				&& columna == tablero.cantCaminosVertTablero() - ajusteIndice) {
 			if (suma == 0 && pasosRestantes == 0) {
-				caminosPosibles++;
 				caminosValidos.put(caminosValidos.size() + ajusteIndice, new ArrayList<>(caminoActual));
 				caminoActual.remove(caminoActual.size() - ajusteIndice);
 				return;
@@ -76,10 +74,11 @@ public class FuerzaBruta {
 	}
 
 	public int getCaminosPosibles() {
-		return caminosPosibles;
+		return caminosValidos.size();
 	}
 
 	public Map<Integer, List<Posicion>> getCaminosValidos() {
+	
 		return caminosValidos;
 	}
 

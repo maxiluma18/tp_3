@@ -34,12 +34,12 @@ public class TableroUI extends JFrame {
 	private TableroElectronico tablero;
 	private JPanel panelEstadisticas;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
-	private JButton btnGraficar;
+	private JButton btnGraficar, btnVolver;
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solver;
 	private BackTrack backtrack;
 	private FuerzaBruta fuerzaBruta;
-	private Map<Integer, List<Posicion>> caminosValidosFB;
+	private Map<Integer, List<Posicion>> caminosValidos;
 	private Graficos grafico;
 
 	public TableroUI() {
@@ -92,7 +92,7 @@ public class TableroUI extends JFrame {
 		btnGraficar.setBounds(264, 0, 85, 60);
 		panelNORTH.add(btnGraficar);
 		
-		JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		
 		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
@@ -167,8 +167,6 @@ public class TableroUI extends JFrame {
 			}
 		}
 		resolverTablero(tablero, panelEstadisticas);
-		
-		
 		return botones;
 	}
 
@@ -196,21 +194,21 @@ public class TableroUI extends JFrame {
 		estadisticas.add(lblCaminosBT);
 		
 		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: " + TiempoFB + " ms");
-		lblTiempoFB.setBounds(358, 5, 246, 14);
+		lblTiempoFB.setBounds(325, 5, 246, 14);
 		estadisticas.add(lblTiempoFB);
 		
 		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " +  fuerzaBruta.getLlamadasRecursivas());
-		lblLlamadasFB.setBounds(358, 21, 254, 14);
+		lblLlamadasFB.setBounds(325, 21, 288, 14);
 		estadisticas.add(lblLlamadasFB);
 		
 		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: "+  fuerzaBruta.getCaminosPosibles());
-		lblCaminosFB.setBounds(358, 35, 251, 14);
+		lblCaminosFB.setBounds(325, 35, 251, 14);
 		estadisticas.add(lblCaminosFB);
 
 		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
-		caminosValidosFB = fuerzaBruta.getCaminosValidos();
-		if (caminosValidosFB.size() > 0) {
-			List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidosFB);
+		caminosValidos = fuerzaBruta.getCaminosValidos();
+		if (caminosValidos.size() > 0) {
+			List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidos);
 			pintarCamino(primerCaminoValido);
 		}
 

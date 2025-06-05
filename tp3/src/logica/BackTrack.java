@@ -8,7 +8,6 @@ import java.util.Map;
 public class BackTrack {
 
 	private int llamadasRecursivas;
-	private int caminosPosibles;
 	private int ajusteIndice = 1;
 	private double tiempoMilisegundos = 1_000_000.0;
 	private long tiempoInicio, tiempoFinal;
@@ -30,7 +29,6 @@ public class BackTrack {
 		if (fila == tablero.cantCaminosHorTablero() - ajusteIndice
 				&& columna == tablero.cantCaminosVertTablero() - ajusteIndice) {
 			if (suma == 0 && pasosRestantes == 0) {
-				caminosPosibles++;
 				caminosValidos.put(caminosValidos.size() + ajusteIndice, new ArrayList<>(caminoActual));
 				caminoActual.remove(caminoActual.size() - ajusteIndice);
 				return;
@@ -40,7 +38,7 @@ public class BackTrack {
 		}
 		
 		
-		// Poda, preguntarle al profe si se puede mejorar
+		//Poda, preguntarle al profe si se puede mejorar
         //Lo que hace es que se fija si el total de la suma es mayor a los pasos restantes, si es asi, corta la
         //recursividad y no termina
 		if (Math.abs(suma) > pasosRestantes) {
@@ -87,7 +85,7 @@ public class BackTrack {
 	}
 
 	public int getCaminosPosibles() {
-		return caminosPosibles;
+		return caminosValidos.size();
 	}
 
 	public Map<Integer, List<Posicion>> getCaminosValidos() {

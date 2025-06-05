@@ -14,7 +14,7 @@ import java.awt.Font;
 
 
 public class Menu extends JFrame {
-
+	private JButton btnGrillaAleatoria, btnGrillaCargar, btnSalir;
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
@@ -55,7 +55,7 @@ public class Menu extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JButton btnGrillaAleatoria = new JButton("Tablero Aleatorio");
+		btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new TableroUI();
@@ -63,7 +63,7 @@ public class Menu extends JFrame {
 				dispose();
 			}
 		});
-		JButton btnGrillaCargar = new JButton("Cargar Tablero");
+		btnGrillaCargar  = new JButton("Cargar Tablero");
 		btnGrillaCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -79,7 +79,7 @@ public class Menu extends JFrame {
 		lblNewJgoodiesTitle.setBounds(111, 46, 228, 13);
 		contentPane.add(lblNewJgoodiesTitle);
 		
-		JButton btnSalir = new JButton("Salir");
+		 btnSalir = new JButton("Salir");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
