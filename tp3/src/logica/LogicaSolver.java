@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BackTrack {
+public class LogicaSolver {
 
 	private int llamadasRecursivas;
 	private int ajusteIndice = 1;
@@ -14,13 +14,13 @@ public class BackTrack {
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
 
-	public BackTrack() {
+	public LogicaSolver() {
 		caminoActual = new ArrayList<Posicion>();
 		caminosValidos = new HashMap<Integer, List<Posicion>>();
 
 	}
 
-	private void realizarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
+	private void realizarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero, boolean usarPoda) {
 
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
@@ -41,43 +41,43 @@ public class BackTrack {
 		//Poda, preguntarle al profe si se puede mejorar
         //Lo que hace es que se fija si el total de la suma es mayor a los pasos restantes, si es asi, corta la
         //recursividad y no termina
-		if (Math.abs(suma) > pasosRestantes) {
+		if (usarPoda && Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
 
 			// Movimiento p abajo
 			if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
-				realizarBackTrack(fila + ajusteIndice, columna,
+				realizarAlgoritmo(fila + ajusteIndice, columna,
 						suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
-						tablero);
+						tablero, usarPoda);
 			}
 
 			// Movimiento p derecha
 			if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
-				realizarBackTrack(fila, columna + ajusteIndice,
+				realizarAlgoritmo(fila, columna + ajusteIndice,
 						suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
-						tablero);
+						tablero, usarPoda);
 			}
 
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 		
 	}
 
-	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
+	public void ejecutarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero, boolean usarPoda) {
 		tiempoInicio = System.nanoTime();
-		realizarBackTrack(fila, columna, suma, pasosRestantes, tablero);
+		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero, usarPoda);
 		tiempoFinal = System.nanoTime();
 
 	}
 
-	private double tiempoEjecucionBackTrack() {
+	private double tiempoEjecucionAlgoritmo() {
 
 		return (tiempoFinal - tiempoInicio) / tiempoMilisegundos;
 	}
 
-	public double obtenerTiempoEjecucionBackTrack() {
-		return tiempoEjecucionBackTrack();
+	public double obtenerTiempoEjecucionAlgoritmo() {
+		return tiempoEjecucionAlgoritmo();
 	}
 
 	public int getLlamadasRecursivas() {

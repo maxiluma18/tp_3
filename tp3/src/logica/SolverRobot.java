@@ -2,38 +2,31 @@ package logica;
 
 public class SolverRobot {
 	private TableroElectronico tablero;
-	private BackTrack backTrack;
-	private FuerzaBruta fuerzaBruta;
+	private LogicaSolver logicaSolver;
 
 	public SolverRobot(TableroElectronico tableroo) {
 		this.tablero = tableroo;
-		this.backTrack = new BackTrack();
-		this.fuerzaBruta = new FuerzaBruta();
+		logicaSolver = new LogicaSolver();
 	}
 
-	public void resolveBacktrack() {
+	public void resolverAlgoritmoPoda() {
 
 		int valorInicial = tablero.obtenerValorTablero(0, 0);
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		backTrack.ejecutarBackTrack(0, 0, valorInicial, pasosTotales, tablero);
-		tablero.CaminosValidos(backTrack.getCaminosValidos());
+		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, true);
 	}
 
-	public void resolverFuerzaBruta() {
+	public void resolverAlgoritmoNoPoda() {
 
 		int valorInicial = tablero.obtenerValorTablero(0, 0);
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		fuerzaBruta.ejecutarFuerzaBruta(0, 0, valorInicial, pasosTotales, tablero);
-		
+		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, false);
+	}
+	
+	public LogicaSolver obtenerSolver() {
+		return logicaSolver;
 	}
 
-	public BackTrack obtenerBackTrack() {
-		return backTrack;
-	}
-
-	public FuerzaBruta obtenerFuerzaBruta() {
-		return fuerzaBruta;
-	}
 }

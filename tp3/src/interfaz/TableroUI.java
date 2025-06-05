@@ -15,8 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import logica.BackTrack;
-import logica.FuerzaBruta;
+import logica.LogicaSolver;
 import logica.Posicion;
 import logica.RandomNumeros;
 import logica.SolverRobot;
@@ -28,17 +27,15 @@ import java.awt.Font;
 public class TableroUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private JPanel contentPane, panelEstadisticas;
 	private RandomNumeros random;
 	private JButton[][] botones;
 	private TableroElectronico tablero;
-	private JPanel panelEstadisticas;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
 	private JButton btnGraficar, btnVolver;
 	private double TiempoBt, TiempoFB;
-	private SolverRobot solver;
-	private BackTrack backtrack;
-	private FuerzaBruta fuerzaBruta;
+	private SolverRobot solverPoda, solverNoPoda;
+	private LogicaSolver algoritmoPoda,algoritmoNoPoda;
 	private Map<Integer, List<Posicion>> caminosValidos;
 	private Graficos grafico;
 
@@ -157,7 +154,7 @@ public class TableroUI extends JFrame {
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
 				botones[i][j] = new JButton(String.valueOf(valores[i][j]));	
-				botones[i][j].setFont(new Font("Arial", Font.BOLD, 16));
+				botones[i][j].setFont(new Font("Arial", Font.BOLD, 13));
 				botones[i][j].setForeground(Color.BLACK);
 				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 				botones[i][j].setEnabled(false);
@@ -171,42 +168,44 @@ public class TableroUI extends JFrame {
 	}
 
 	private void resolverTablero(TableroElectronico tablero, JPanel estadisticas) {
-		solver = new SolverRobot(tablero);
-		backtrack = solver.obtenerBackTrack();
-		fuerzaBruta = solver.obtenerFuerzaBruta();
-		solver.resolverFuerzaBruta();
-		solver.resolveBacktrack();
-		TiempoBt = backtrack.obtenerTiempoEjecucionBackTrack();
-		TiempoFB = fuerzaBruta.obtenerTiempoEjecucionFuerzaBruta();
+		solverNoPoda = new SolverRobot(tablero);
+		solverNoPoda.resolverAlgoritmoNoPoda();
+		algoritmoNoPoda = solverNoPoda.obtenerSolver();
+		TiempoFB = algoritmoNoPoda.obtenerTiempoEjecucionAlgoritmo();
+		
+		
+		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: " + TiempoFB + " ms");
+		lblTiempoFB.setBounds(325, 5, 246, 14);
+		estadisticas.add(lblTiempoFB);
+		
+		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " +  algoritmoNoPoda.getLlamadasRecursivas());
+		lblLlamadasFB.setBounds(325, 21, 288, 14);
+		estadisticas.add(lblLlamadasFB);
+		
+		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: "+  algoritmoNoPoda.getCaminosPosibles());
+		lblCaminosFB.setBounds(325, 35, 251, 14);
+		estadisticas.add(lblCaminosFB);
+
+		solverPoda = new SolverRobot(tablero);
+		solverPoda.resolverAlgoritmoPoda();
+		algoritmoPoda = solverPoda.obtenerSolver();
+		TiempoBt = algoritmoPoda.obtenerTiempoEjecucionAlgoritmo();
 		estadisticas.setLayout(null);
 		
 		lblTiempoBT = new JLabel("Tiempo de BackTracking ⏰: " + TiempoBt + " ms");
 		lblTiempoBT.setBounds(23, 5, 265, 14);
 		estadisticas.add(lblTiempoBT);
 		
-		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: " + backtrack.getLlamadasRecursivas());
+		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: " + algoritmoPoda.getLlamadasRecursivas());
 		lblLlamadasBT.setBounds(23, 21, 307, 14);
 		estadisticas.add(lblLlamadasBT);
 		
-		
-		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: " + backtrack.getCaminosPosibles());
+		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: " + algoritmoPoda.getCaminosPosibles());
 		lblCaminosBT.setBounds(23, 35, 307, 14);
 		estadisticas.add(lblCaminosBT);
 		
-		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: " + TiempoFB + " ms");
-		lblTiempoFB.setBounds(325, 5, 246, 14);
-		estadisticas.add(lblTiempoFB);
-		
-		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " +  fuerzaBruta.getLlamadasRecursivas());
-		lblLlamadasFB.setBounds(325, 21, 288, 14);
-		estadisticas.add(lblLlamadasFB);
-		
-		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: "+  fuerzaBruta.getCaminosPosibles());
-		lblCaminosFB.setBounds(325, 35, 251, 14);
-		estadisticas.add(lblCaminosFB);
-
 		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
-		caminosValidos = fuerzaBruta.getCaminosValidos();
+		caminosValidos = algoritmoPoda.getCaminosValidos();
 		if (caminosValidos.size() > 0) {
 			List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidos);
 			pintarCamino(primerCaminoValido);
