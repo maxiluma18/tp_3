@@ -168,9 +168,7 @@ public class TableroUI extends JFrame {
 		}
 		resolverTablero(tablero, panelEstadisticas);
 		
-		Fondo panel_1 = new Fondo("robotComienzoo_64.png");
-		panel_1.setBounds(605, 0, 70, 60);
-		panelEstadisticas.add(panel_1);
+		
 		return botones;
 	}
 
@@ -224,6 +222,9 @@ public class TableroUI extends JFrame {
 			int columna = p.getColumna();
 			
 			botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+			Fondo panel_1 = new Fondo("robotFinal_64.png");
+			panel_1.setBounds(605, 0, 70, 60);
+			panelEstadisticas.add(panel_1);
 		}
 	}
 	private ImageIcon CargarYObtenerImagen(String nombre) {

@@ -17,7 +17,7 @@ public class SolverRobot {
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
 		backTrack.ejecutarBackTrack(0, 0, valorInicial, pasosTotales, tablero);
-		tablero.CaminosValidosBackTrack(backTrack.getCaminosValidos());
+		tablero.CaminosValidos(backTrack.getCaminosValidos());
 	}
 
 	public void resolverFuerzaBruta() {
@@ -26,7 +26,7 @@ public class SolverRobot {
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
 		fuerzaBruta.ejecutarFuerzaBruta(0, 0, valorInicial, pasosTotales, tablero);
-		tablero.CaminosValidosFuerzaBruta(fuerzaBruta.getCaminosValidos());
+		
 	}
 
 	public BackTrack obtenerBackTrack() {

@@ -7,8 +7,7 @@ import java.util.Random;
 public class TableroElectronico {
 
 	private List<Posicion> caminoActual;
-	private Map<Integer, List<Posicion>> caminosValidosFb;
-	private Map<Integer, List<Posicion>> caminosValidosBt;
+	private Map<Integer, List<Posicion>> caminosValidos;
 	private static Grilla grilla;
 	public TableroElectronico(int caminoHorizontal, int caminoVertical) {
 		caminoHorizontal = verificarParidad(caminoHorizontal, caminoVertical);
@@ -44,19 +43,14 @@ public class TableroElectronico {
 		}
 		return  caminoHo;
 	}
-	public void CaminosValidosBackTrack(Map<Integer, List<Posicion>> caminos) {
-		caminosValidosBt = caminos;
+	public void CaminosValidos(Map<Integer, List<Posicion>> caminos) {
+		caminosValidos = caminos;
 	}
-	public void CaminosValidosFuerzaBruta(Map<Integer, List<Posicion>> caminos) {
-		caminosValidosFb = caminos;
+
+	public void elegirCaminoActual(Integer num) {
+		caminoActual = caminosValidos.get(num);
 	}
-	
-	public void elegirCaminoActualFb(Integer num) {
-		caminoActual = caminosValidosFb.get(num);
-	}
-	public void elegirCaminoActualBt(Integer num) {
-		caminoActual = caminosValidosBt.get(num);
-	}
+
 	public Posicion obtenerCoordena(Integer num) {
 		return caminoActual.get(num);
 	}
