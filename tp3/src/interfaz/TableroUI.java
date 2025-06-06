@@ -169,12 +169,12 @@ public class TableroUI extends JFrame {
 
 	private void resolverTablero(TableroElectronico tablero, JPanel estadisticas) {
 		solverNoPoda = new SolverRobot(tablero);
-		solverNoPoda.resolverAlgoritmo(false);
+		solverNoPoda.resolverFuerzaBruta();
 		algoritmoNoPoda = solverNoPoda.obtenerSolver();
 		TiempoFB = algoritmoNoPoda.obtenerTiempoEjecucionAlgoritmo();
 		
 		
-		lblTiempoFB = new JLabel("Tiempo de FuerzaBruta: " + TiempoFB + " ms");
+		lblTiempoFB = new JLabel("⏰ Tiempo de FuerzaBruta: " + TiempoFB + " ms");
 		lblTiempoFB.setBounds(325, 5, 246, 14);
 		estadisticas.add(lblTiempoFB);
 		
@@ -187,12 +187,12 @@ public class TableroUI extends JFrame {
 		estadisticas.add(lblCaminosFB);
 
 		solverPoda = new SolverRobot(tablero);
-		solverPoda.resolverAlgoritmo(true);
+		solverPoda.resolverBacktrack();
 		algoritmoPoda = solverPoda.obtenerSolver();
 		TiempoBt = algoritmoPoda.obtenerTiempoEjecucionAlgoritmo();
 		estadisticas.setLayout(null);
 		
-		lblTiempoBT = new JLabel("Tiempo de BackTracking ⏰: " + TiempoBt + " ms");
+		lblTiempoBT = new JLabel("⏰ Tiempo de BackTracking: " + TiempoBt + " ms");
 		lblTiempoBT.setBounds(23, 5, 265, 14);
 		estadisticas.add(lblTiempoBT);
 		

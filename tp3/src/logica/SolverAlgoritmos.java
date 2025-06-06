@@ -15,6 +15,8 @@ public class SolverAlgoritmos {
 	private long tiempoInicio, tiempoFinal;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
+	
+	private boolean poda;
 
 	public SolverAlgoritmos() {
 		caminoActual = new ArrayList<Posicion>();
@@ -22,8 +24,7 @@ public class SolverAlgoritmos {
 
 	}
 
-	private void realizarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero,
-			boolean usarPoda) {
+	private void realizarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
@@ -44,7 +45,7 @@ public class SolverAlgoritmos {
 		// Lo que hace es que se fija si el total de la suma es mayor a los pasos
 		// restantes, si es asi, corta la
 		// recursividad y no termina
-		if (usarPoda && Math.abs(suma) > pasosRestantes) {
+		if (poda && Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
@@ -53,14 +54,14 @@ public class SolverAlgoritmos {
 		if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
 			realizarAlgoritmo(fila + ajusteIndice, columna,
 					suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
-					tablero, usarPoda);
+					tablero);
 		}
 
 		// Movimiento p derecha
 		if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
 			realizarAlgoritmo(fila, columna + ajusteIndice,
 					suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
-					tablero, usarPoda);
+					tablero);
 		}
 
 		caminoActual.remove(caminoActual.size() - ajusteIndice);
@@ -72,10 +73,21 @@ public class SolverAlgoritmos {
 		return (tiempoFinal - tiempoInicio) / tiempoMilisegundos;
 	}
 
-	public void ejecutarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero,
-			boolean usarPoda) {
+	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
+		poda=true;
+	
 		tiempoInicio = System.nanoTime();
-		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero, usarPoda);
+		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero);
+		System.out.println(	caminosValidos.size());
+		tiempoFinal = System.nanoTime();
+
+	}
+	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
+		poda=false;
+		tiempoInicio = System.nanoTime();
+		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero);
+		System.out.println(	caminosValidos.size());
+		
 		tiempoFinal = System.nanoTime();
 
 	}

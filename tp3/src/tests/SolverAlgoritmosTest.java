@@ -39,7 +39,7 @@ public class SolverAlgoritmosTest {
 
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		solver.ejecutarAlgoritmo(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero, true);
+		solver.ejecutarBackTrack(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero);
 
 		assertEquals(2, solver.getCaminosPosibles());
 	}
@@ -70,7 +70,7 @@ public class SolverAlgoritmosTest {
 
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		solver.ejecutarAlgoritmo(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero, true);
+		solver.ejecutarBackTrack(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero);
 
 		assertEquals(0, solver.getCaminosPosibles());
 	}
@@ -98,13 +98,13 @@ public class SolverAlgoritmosTest {
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
 		// ejecutar con poda (backtracking)
-		solver.ejecutarAlgoritmo(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero, true);
+		solver.ejecutarBackTrack(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero);
 		int caminosConPoda = solver.getCaminosPosibles();
 		int llamadasConPoda = solver.getLlamadasRecursivas();
 
 		// ejecutar sin poda (fuerza bruta)
 		SolverAlgoritmos solverSinPoda = new SolverAlgoritmos();
-		solverSinPoda.ejecutarAlgoritmo(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero, false);
+		solverSinPoda.ejecutarFuerzaBruta(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero);
 		int caminosSinPoda = solverSinPoda.getCaminosPosibles();
 		int llamadasSinPoda = solverSinPoda.getLlamadasRecursivas();
 
@@ -138,7 +138,7 @@ public class SolverAlgoritmosTest {
 
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		solver.ejecutarAlgoritmo(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero, true);
+		solver.ejecutarBackTrack(0, 0, tablero.obtenerValorTablero(0, 0), pasosTotales, tablero);
 
 		assertTrue(solver.obtenerTiempoEjecucionAlgoritmo() > 0);
 	}

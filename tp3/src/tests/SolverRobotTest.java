@@ -38,21 +38,21 @@ public class SolverRobotTest {
 
 	@Test
 	public void testResolverAlgoritmoConPoda() {
-		solverRobot.resolverAlgoritmo(true); // usar poda
+		solverRobot.resolverBacktrack();; // usar poda
 
 		assertEquals(1, solverRobot.obtenerSolver().getCaminosPosibles());
 	}
 
 	@Test
 	public void testResolverAlgoritmoSinPoda() {
-		solverRobot.resolverAlgoritmo(false); // sin poda
+		solverRobot.resolverFuerzaBruta(); // sin poda
 
 		assertEquals(1, solverRobot.obtenerSolver().getCaminosPosibles());
 	}
 
 	@Test
 	public void testTiempoDeEjecucionEsMayorACero() {
-		solverRobot.resolverAlgoritmo(true);
+		solverRobot.resolverBacktrack();
 
 		double tiempo = solverRobot.obtenerSolver().obtenerTiempoEjecucionAlgoritmo();
 
