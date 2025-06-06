@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import logica.LogicaSolver;
+import logica.SolverAlgoritmos;
 import logica.Posicion;
 import logica.RandomNumeros;
 import logica.SolverRobot;
@@ -35,7 +35,7 @@ public class TableroUI extends JFrame {
 	private JButton btnGraficar, btnVolver;
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solverPoda, solverNoPoda;
-	private LogicaSolver algoritmoPoda,algoritmoNoPoda;
+	private SolverAlgoritmos algoritmoPoda,algoritmoNoPoda;
 	private Map<Integer, List<Posicion>> caminosValidos;
 	private Graficos grafico;
 
@@ -149,7 +149,7 @@ public class TableroUI extends JFrame {
 
 	private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
 		botones = new JButton[x][y];
-		int[][] valores = tablero.generarYSetearValoresAleatorios(x, y, random);
+		int[][] valores = tablero.obtenerGenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {

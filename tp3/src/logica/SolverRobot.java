@@ -2,11 +2,11 @@ package logica;
 
 public class SolverRobot {
 	private TableroElectronico tablero;
-	private LogicaSolver logicaSolver;
+	private SolverAlgoritmos solverAlgoritmos;
 
 	public SolverRobot(TableroElectronico tableroo) {
 		this.tablero = tableroo;
-		logicaSolver = new LogicaSolver();
+		solverAlgoritmos = new SolverAlgoritmos();
 	}
 
 	public void resolverAlgoritmo(boolean usarPoda) {
@@ -14,11 +14,11 @@ public class SolverRobot {
 		int valorInicial = tablero.obtenerValorTablero(0, 0);
 		int pasosTotales = tablero.cantCaminosHorTablero() + tablero.cantCaminosVertTablero() - 2;
 
-		logicaSolver.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, usarPoda);
+		solverAlgoritmos.ejecutarAlgoritmo(0, 0, valorInicial, pasosTotales, tablero, usarPoda);
 	}
 
-	public LogicaSolver obtenerSolver() {
-		return logicaSolver;
+	public SolverAlgoritmos obtenerSolver() {
+		return solverAlgoritmos;
 	}
 
 }

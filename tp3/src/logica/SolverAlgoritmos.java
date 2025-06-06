@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LogicaSolver {
+//EN ESTA CLASE SE RESUELVEN LOS ALGORITMOS DE BACKTRACKING Y FUERZA BRUTA
+
+public class SolverAlgoritmos {
 
 	private int llamadasRecursivas;
 	private int ajusteIndice = 1;
@@ -14,13 +16,14 @@ public class LogicaSolver {
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
 
-	public LogicaSolver() {
+	public SolverAlgoritmos() {
 		caminoActual = new ArrayList<Posicion>();
 		caminosValidos = new HashMap<Integer, List<Posicion>>();
 
 	}
 
-	private void realizarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero, boolean usarPoda) {
+	private void realizarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero,
+			boolean usarPoda) {
 
 		llamadasRecursivas++;
 		caminoActual.add(new Posicion(fila, columna));
@@ -36,44 +39,45 @@ public class LogicaSolver {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
-		
-		
-		//Poda, preguntarle al profe si se puede mejorar
-        //Lo que hace es que se fija si el total de la suma es mayor a los pasos restantes, si es asi, corta la
-        //recursividad y no termina
+
+		// BACKTRACKING:
+		// Lo que hace es que se fija si el total de la suma es mayor a los pasos
+		// restantes, si es asi, corta la
+		// recursividad y no termina
 		if (usarPoda && Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;
 		}
 
-			// Movimiento p abajo
-			if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
-				realizarAlgoritmo(fila + ajusteIndice, columna,
-						suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
-						tablero, usarPoda);
-			}
+		// Movimiento p abajo
+		if (tablero.verificarLimitesTablero(fila + ajusteIndice, columna)) {
+			realizarAlgoritmo(fila + ajusteIndice, columna,
+					suma + tablero.obtenerValorTablero(fila + ajusteIndice, columna), pasosRestantes - ajusteIndice,
+					tablero, usarPoda);
+		}
 
-			// Movimiento p derecha
-			if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
-				realizarAlgoritmo(fila, columna + ajusteIndice,
-						suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
-						tablero, usarPoda);
-			}
+		// Movimiento p derecha
+		if (tablero.verificarLimitesTablero(fila, columna + ajusteIndice)) {
+			realizarAlgoritmo(fila, columna + ajusteIndice,
+					suma + tablero.obtenerValorTablero(fila, columna + ajusteIndice), pasosRestantes - ajusteIndice,
+					tablero, usarPoda);
+		}
 
-			caminoActual.remove(caminoActual.size() - ajusteIndice);
-		
-	}
-
-	public void ejecutarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero, boolean usarPoda) {
-		tiempoInicio = System.nanoTime();
-		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero, usarPoda);
-		tiempoFinal = System.nanoTime();
+		caminoActual.remove(caminoActual.size() - ajusteIndice);
 
 	}
 
 	private double tiempoEjecucionAlgoritmo() {
 
 		return (tiempoFinal - tiempoInicio) / tiempoMilisegundos;
+	}
+
+	public void ejecutarAlgoritmo(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero,
+			boolean usarPoda) {
+		tiempoInicio = System.nanoTime();
+		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero, usarPoda);
+		tiempoFinal = System.nanoTime();
+
 	}
 
 	public double obtenerTiempoEjecucionAlgoritmo() {
