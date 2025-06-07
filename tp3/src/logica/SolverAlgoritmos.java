@@ -15,7 +15,6 @@ public class SolverAlgoritmos {
 	private long tiempoInicio, tiempoFinal;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
-	
 	private boolean poda;
 
 	public SolverAlgoritmos() {
@@ -65,7 +64,7 @@ public class SolverAlgoritmos {
 		}
 
 		caminoActual.remove(caminoActual.size() - ajusteIndice);
-
+		
 	}
 
 	private double tiempoEjecucionAlgoritmo() {
@@ -75,20 +74,18 @@ public class SolverAlgoritmos {
 
 	public void ejecutarBackTrack(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 		poda=true;
-	
 		tiempoInicio = System.nanoTime();
 		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero);
-		System.out.println(	caminosValidos.size());
 		tiempoFinal = System.nanoTime();
+		tablero.CaminosValidos(caminosValidos);
 
 	}
 	public void ejecutarFuerzaBruta(int fila, int columna, int suma, int pasosRestantes, TableroElectronico tablero) {
 		poda=false;
 		tiempoInicio = System.nanoTime();
-		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero);
-		System.out.println(	caminosValidos.size());
-		
+		realizarAlgoritmo(fila, columna, suma, pasosRestantes, tablero);		
 		tiempoFinal = System.nanoTime();
+		tablero.CaminosValidos(caminosValidos);
 
 	}
 
@@ -104,7 +101,4 @@ public class SolverAlgoritmos {
 		return caminosValidos.size();
 	}
 
-	public Map<Integer, List<Posicion>> getCaminosValidos() {
-		return caminosValidos;
-	}
 }

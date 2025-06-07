@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +12,8 @@ public class TableroElectronico {
 	private static Grilla grilla;
 
 	public TableroElectronico(int caminoHorizontal, int caminoVertical) {
+		caminoActual = new ArrayList<Posicion>();
+		caminosValidos = new HashMap<Integer, List<Posicion>>();
 		caminoHorizontal = verificarParidad(caminoHorizontal, caminoVertical);
 		grilla = new Grilla(caminoHorizontal, caminoVertical);
 	}
@@ -26,7 +30,7 @@ public class TableroElectronico {
 
 	}
 
-	private int[][] generarYSetearValoresAleatorios(int filas, int columnas, RandomNumeros random) {
+	private void generarYSetearValoresAleatorios(int filas, int columnas, RandomNumeros random) {
 		int[][] valores = new int[filas][columnas];
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
@@ -37,11 +41,10 @@ public class TableroElectronico {
 				setearValorTablero(i, j, valor);
 			}
 		}
-		return valores;
 	}
 
-	public int[][] obtenerGenerarYSetearValoresAleatorios(int filas, int columnas, RandomNumeros random) {
-		return generarYSetearValoresAleatorios(filas, columnas, random);
+	public void GenerarYSetearValoresAleatorios(int filas, int columnas, RandomNumeros random) {
+		generarYSetearValoresAleatorios(filas, columnas, random);
 	}
 
 	public boolean verificarLimitesTablero(int caminoHorizontal, int caminoVertical) {
@@ -66,15 +69,27 @@ public class TableroElectronico {
 	}
 
 	public void CaminosValidos(Map<Integer, List<Posicion>> caminos) {
+		caminosValidos.clear();
 		caminosValidos = caminos;
 	}
 
 	public void elegirCaminoActual(Integer num) {
 		caminoActual = caminosValidos.get(num);
 	}
+	public int CaminoActualTamaño() {
+		return caminoActual.size();
+	}
 
-	public Posicion obtenerCoordena(Integer num) {
+	private Posicion obtenerCoordena(Integer num) {
 		return caminoActual.get(num);
+	}
+
+	public int obtenerCoordenaX(Integer num) {
+		return obtenerCoordena(num).getFila();
+	}
+
+	public int obtenerCoordenaY(Integer num) {
+		return obtenerCoordena(num).getColumna();
 	}
 
 }

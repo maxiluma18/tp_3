@@ -18,7 +18,7 @@ public int darNumeroAleatorio() {
 	return (random.nextInt(10))+2;
 }
 
-public List<Posicion> darCaminoAleatorio(Map<Integer, List<Posicion>> caminosValidos) {
-	return caminosValidos.get(random.nextInt(caminosValidos.size())+1);
+public int darCaminoAleatorio(Integer cantCaminos) {
+	return random.nextInt(cantCaminos+1);
 }
 }
