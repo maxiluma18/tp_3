@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import logica.SolverAlgoritmos;
+import logica.GeneradorGrillaAleatoria;
 import logica.Posicion;
 import logica.RandomNumeros;
 import logica.SolverRobot;
@@ -39,12 +40,9 @@ public class TableroUI extends JFrame {
 	private Graficos grafico;
 
 	public TableroUI() {
-		
-		random = new RandomNumeros();
-		int x = (random.darNumeroAleatorio()) + 2;
-		int y = (random.darNumeroAleatorio()) + 2;
-
-		tablero = new TableroElectronico(x, y);
+		 random = new RandomNumeros();
+		 GeneradorGrillaAleatoria aleatoria = new GeneradorGrillaAleatoria();
+		 tablero = aleatoria.generarUnaGrillaAleatoria();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
@@ -148,7 +146,7 @@ public class TableroUI extends JFrame {
 
 	private JButton[][] crearTablero(JPanel panel, int x, int y) {
 		botones = new JButton[x][y];
-		tablero.GenerarYSetearValoresAleatorios(x, y, random);
+		//tablero.GenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -212,15 +210,25 @@ public class TableroUI extends JFrame {
 	}
 
 	private void pintarCamino(int CaminoSize) {
+		int fila_Anterior=0;
+		int columna_Anterior=0;
 		for (int posicion=0; posicion < CaminoSize; posicion++) {
 				int fila = tablero.obtenerCoordenaX(posicion);
 				int columna = tablero.obtenerCoordenaY(posicion);
+				if (fila == fila_Anterior && columna_Anterior<columna &&columna !=tablero.obtenerCoordenaY(posicion+1) ){
 				
-				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
-				Fondo panel_1 = new Fondo("robotFinal_64.png");
-				panel_1.setBounds(605, 0, 70, 60);
-				panelEstadisticas.add(panel_1);
+				botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
+					
+				}
+				else {
+					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+				}
+				columna_Anterior=columna;
+				fila_Anterior=fila;
 		}
+		Fondo panel_1 = new Fondo("robotFinal_64.png");
+		panel_1.setBounds(605, 0, 70, 60);
+		panelEstadisticas.add(panel_1);
 	}
 	private ImageIcon CargarYObtenerImagen(String nombre) {
 		return new ImageIcon(TableroUI.class.getResource("/imagenes/"+nombre+".png"));

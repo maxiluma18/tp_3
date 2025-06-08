@@ -27,16 +27,18 @@ public class GraficoLineal extends JFrame {
     private String valor_Comparado2="Fuerza Bruta";
     
     public GraficoLineal() {
-        setTitle(tituloFrame);
-        setBounds(100, 100, 600, 400);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setTitle(tituloFrame);       
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
+        setAlwaysOnTop(true); 
+      
 
         XYDataset datos = crear_datos();
         _grafico = crear_grafico_lineal(titulo, etiqueta_horizontal, etiqueta_Vertical, datos);
 
         ChartPanel panel = new ChartPanel(_grafico);
         getContentPane().add(panel);
-        pack();
+        pack(); //lo que hace es q modifica el tamaño segun el grafico 
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -45,6 +47,7 @@ public class GraficoLineal extends JFrame {
     }
 
     private XYDataset crear_datos() {
+    	
         GeneradorGrillaAleatoria generador = new GeneradorGrillaAleatoria();
 
         XYSeries serieBT = new XYSeries(valor_Comparado1);

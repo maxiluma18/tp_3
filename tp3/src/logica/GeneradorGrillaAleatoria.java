@@ -20,7 +20,24 @@ public class GeneradorGrillaAleatoria {
         tiemposBacktrack = new ArrayList<>();
         tiemposFuerzaBruta = new ArrayList<>();
 
-        for (int i = 0; i < cantTableros; i++) {
+        
+       
+    }
+   private  TableroElectronico unaAleatoria() {
+	   RandomNumeros random = new RandomNumeros();
+       int x = random.darNumeroAleatorio() + suma;
+       int y = random.darNumeroAleatorio() + suma;
+
+       TableroElectronico tablero = new TableroElectronico(x, y);
+       tablero.GenerarYSetearValoresAleatorios(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), random);
+
+       return tablero;
+    }
+    private void aleatorias() {
+    	tamanios.clear();
+    	tiemposFuerzaBruta.clear();
+    	tiemposBacktrack.clear();
+    	for (int i = 0; i < cantTableros; i++) {
             RandomNumeros random = new RandomNumeros();
             int x = random.darNumeroAleatorio() + suma;
             int y = random.darNumeroAleatorio() + suma;
@@ -43,9 +60,14 @@ public class GeneradorGrillaAleatoria {
             tamanios.add(tamanio);
             tiemposFuerzaBruta.add(tiempoFB);
             tiemposBacktrack.add(tiempoBT);
-        }
+            }
     }
-
+    public void generarGrillasAleatorias() {
+    	aleatorias();
+    }
+    public TableroElectronico generarUnaGrillaAleatoria() {
+    	return unaAleatoria();
+    }
     public List<Integer> getTamanios() {
         return tamanios;
     }
