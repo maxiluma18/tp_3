@@ -28,7 +28,7 @@ import java.awt.Font;
 public class TableroUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane, panelEstadisticas;
+	private JPanel contentPane, panelEstadisticas, PanelArriba;
 	private RandomNumeros random;
 	private JButton[][] botones;
 	private TableroElectronico tablero;
@@ -38,6 +38,7 @@ public class TableroUI extends JFrame {
 	private SolverRobot solverPoda, solverNoPoda;
 	private SolverAlgoritmos algoritmoPoda,algoritmoNoPoda;
 	private Graficos grafico;
+	private Fondo  robotComienzo,robotDestino;
 
 	public TableroUI() {
 		 random = new RandomNumeros();
@@ -55,12 +56,12 @@ public class TableroUI extends JFrame {
 
 
 		// PANEL PARA LOS BOTONES DE ARRIBA
-		JPanel panelNORTH = new JPanel();
-		panelNORTH.setLayout(null);
+		PanelArriba = new JPanel();
+		PanelArriba.setLayout(null);
 
 		// aca Seteamos para el tamaño del panel
-		panelNORTH.setPreferredSize(new Dimension(700, 60));
-		contentPane.add(panelNORTH, BorderLayout.NORTH);
+		PanelArriba.setPreferredSize(new Dimension(700, 60));
+		contentPane.add(PanelArriba, BorderLayout.NORTH);
 
 		btnGraficar = new JButton("Graficar");
 
@@ -84,7 +85,7 @@ public class TableroUI extends JFrame {
 			}
 		});
 		btnGraficar.setBounds(264, 0, 85, 60);
-		panelNORTH.add(btnGraficar);
+		PanelArriba.add(btnGraficar);
 		
 		btnVolver = new JButton("Volver");
 		
@@ -109,24 +110,24 @@ public class TableroUI extends JFrame {
 			}
 		});
 		btnVolver.setBounds(350, 0, 85, 60);
-		panelNORTH.add(btnVolver);
+		PanelArriba.add(btnVolver);
 		
 		JLabel CantFilas = new JLabel();
 		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CantFilas.setBounds(571, 11, 94, 21);
 		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
-		panelNORTH.add(CantFilas);
+		PanelArriba.add(CantFilas);
 		
 		JLabel CantCol = new JLabel("");
 		CantCol.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CantCol.setBounds(571, 41, 94, 19);
 		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
-		panelNORTH.add(CantCol);
+		PanelArriba.add(CantCol);
 		
-		Fondo panel_1 = new Fondo("robotComienzoo_64.png");
-		panel_1.setBounds(-9, 0, 70, 60);
+		robotComienzo = new Fondo("robotComienzoo_64.png");
+		robotComienzo.setBounds(-9, 0, 70, 60);
 
-		panelNORTH.add(panel_1);
+		PanelArriba.add(robotComienzo);
 		
 		
 		// GRILLA CREACION
@@ -207,6 +208,7 @@ public class TableroUI extends JFrame {
 			pintarCamino(tablero.CaminoActualTamaño());
 		}
 
+		
 	}
 
 	private void pintarCamino(int CaminoSize) {
@@ -230,10 +232,13 @@ public class TableroUI extends JFrame {
 		    } else {
 		        botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
 		    }
-
+		    
 		    columna_Anterior = columna;
 		    fila_Anterior = fila;
 		}
+		robotDestino = new Fondo("robotFinal_64.png");
+		robotDestino.setBounds(605, 0, 70, 60);
+		panelEstadisticas.add(robotDestino);
 	}
 	private ImageIcon CargarYObtenerImagen(String nombre) {
 		return new ImageIcon(TableroUI.class.getResource("/imagenes/"+nombre+".png"));

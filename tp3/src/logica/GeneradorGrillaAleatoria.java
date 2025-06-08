@@ -27,6 +27,7 @@ public class GeneradorGrillaAleatoria {
 	   RandomNumeros random = new RandomNumeros();
        int x = random.darNumeroAleatorio() + suma;
        int y = random.darNumeroAleatorio() + suma;
+       
 
        TableroElectronico tablero = new TableroElectronico(x, y);
        tablero.GenerarYSetearValoresAleatorios(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), random);
