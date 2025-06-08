@@ -29,7 +29,7 @@ public class GraficoLineal extends JFrame {
     public GraficoLineal() {
         setTitle(tituloFrame);
         setBounds(100, 100, 600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         XYDataset datos = crear_datos();
         _grafico = crear_grafico_lineal(titulo, etiqueta_horizontal, etiqueta_Vertical, datos);

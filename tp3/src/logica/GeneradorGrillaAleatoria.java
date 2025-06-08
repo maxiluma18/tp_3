@@ -26,7 +26,7 @@ public class GeneradorGrillaAleatoria {
             int y = random.darNumeroAleatorio() + suma;
 
             TableroElectronico tablero = new TableroElectronico(x, y);
-            tablero.obtenerGenerarYSetearValoresAleatorios(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), random);
+            tablero.GenerarYSetearValoresAleatorios(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), random);
 
             // Fuerza Bruta
             SolverRobot solverFB = new SolverRobot(tablero);

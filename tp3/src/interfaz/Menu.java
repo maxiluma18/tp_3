@@ -94,7 +94,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new GraficoLineal();
 				setVisible(true);
-				dispose();
+			
 			}
 		});
 		btnGraficoLineal.setBounds(141, 124, 151, 23);

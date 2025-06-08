@@ -36,7 +36,6 @@ public class TableroUI extends JFrame {
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solverPoda, solverNoPoda;
 	private SolverAlgoritmos algoritmoPoda,algoritmoNoPoda;
-	private Map<Integer, List<Posicion>> caminosValidos;
 	private Graficos grafico;
 
 	public TableroUI() {
@@ -143,17 +142,17 @@ public class TableroUI extends JFrame {
 		panelEstadisticas.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 
-		botones = crearTablero(panel, tablero, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
+		botones = crearTablero(panel, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
 
 	}
 
-	private JButton[][] crearTablero(JPanel panel, TableroElectronico tablero, int x, int y) {
+	private JButton[][] crearTablero(JPanel panel, int x, int y) {
 		botones = new JButton[x][y];
-		int[][] valores = tablero.obtenerGenerarYSetearValoresAleatorios(x, y, random);
+		tablero.GenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-				botones[i][j] = new JButton(String.valueOf(valores[i][j]));	
+				botones[i][j] = new JButton(String.valueOf(tablero.obtenerValorTablero(i, j)));	
 				botones[i][j].setFont(new Font("Arial", Font.BOLD, 13));
 				botones[i][j].setForeground(Color.BLACK);
 				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -163,11 +162,11 @@ public class TableroUI extends JFrame {
 				panel.add(botones[i][j]);
 			}
 		}
-		resolverTablero(tablero, panelEstadisticas);
+		resolverTablero(panelEstadisticas);
 		return botones;
 	}
 
-	private void resolverTablero(TableroElectronico tablero, JPanel estadisticas) {
+	private void resolverTablero(JPanel estadisticas) {
 		solverNoPoda = new SolverRobot(tablero);
 		solverNoPoda.resolverFuerzaBruta();
 		algoritmoNoPoda = solverNoPoda.obtenerSolver();
@@ -205,23 +204,22 @@ public class TableroUI extends JFrame {
 		estadisticas.add(lblCaminosBT);
 		
 		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
-		caminosValidos = algoritmoPoda.getCaminosValidos();
-		if (caminosValidos.size() > 0) {
-			List<Posicion> primerCaminoValido = random.darCaminoAleatorio(caminosValidos);
-			pintarCamino(primerCaminoValido);
+		if (algoritmoPoda.getCaminosPosibles() > 0) {
+			tablero.elegirCaminoActual(random.darCaminoAleatorio(algoritmoPoda.getCaminosPosibles()));
+			pintarCamino(tablero.CaminoActualTamaño());
 		}
 
 	}
 
-	private void pintarCamino(List<Posicion> caminoValido) {
-		for (Posicion p : caminoValido) {
-			int fila = p.getFila();
-			int columna = p.getColumna();
-			
-			botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
-			Fondo panel_1 = new Fondo("robotFinal_64.png");
-			panel_1.setBounds(605, 0, 70, 60);
-			panelEstadisticas.add(panel_1);
+	private void pintarCamino(int CaminoSize) {
+		for (int posicion=0; posicion < CaminoSize; posicion++) {
+				int fila = tablero.obtenerCoordenaX(posicion);
+				int columna = tablero.obtenerCoordenaY(posicion);
+				
+				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+				Fondo panel_1 = new Fondo("robotFinal_64.png");
+				panel_1.setBounds(605, 0, 70, 60);
+				panelEstadisticas.add(panel_1);
 		}
 	}
 	private ImageIcon CargarYObtenerImagen(String nombre) {
