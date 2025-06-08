@@ -69,9 +69,9 @@ public class Menu extends JFrame {
 				
 			}
 		});
-		btnGrillaAleatoria.setBounds(141, 106, 151, 23);
+		btnGrillaAleatoria.setBounds(141, 79, 151, 23);
 		contentPane.add(btnGrillaAleatoria);
-		btnGrillaCargar.setBounds(141, 157, 151, 23);
+		btnGrillaCargar.setBounds(141, 169, 151, 23);
 		contentPane.add(btnGrillaCargar);
 		
 		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("Optimización de la ruta de un robot");
@@ -85,8 +85,19 @@ public class Menu extends JFrame {
 				dispose();
 			}
 		});
-		btnSalir.setBounds(141, 214, 151, 23);
+		btnSalir.setBounds(141, 218, 151, 23);
 		contentPane.add(btnSalir);
 		setContentPane(contentPane);
+		
+		JButton btnGraficoLineal = new JButton("Grafico Lineal ");
+		btnGraficoLineal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GraficoLineal();
+				setVisible(true);
+				dispose();
+			}
+		});
+		btnGraficoLineal.setBounds(141, 124, 151, 23);
+		contentPane.add(btnGraficoLineal);
 	}
 }
