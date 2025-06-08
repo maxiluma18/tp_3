@@ -207,10 +207,7 @@ public class TableroUI extends JFrame {
 			pintarCamino(tablero.CaminoActualTamaño());
 		}
 
-	}/* /---------
-	/ / / /
-   / / / /
-	 * */
+	}
 
 	private void pintarCamino(int CaminoSize) {
 		int fila_Anterior=0;
