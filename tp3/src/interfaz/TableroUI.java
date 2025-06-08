@@ -207,28 +207,36 @@ public class TableroUI extends JFrame {
 			pintarCamino(tablero.CaminoActualTamaño());
 		}
 
-	}
+	}/* /---------
+	/ / / /
+   / / / /
+	 * */
 
 	private void pintarCamino(int CaminoSize) {
 		int fila_Anterior=0;
 		int columna_Anterior=0;
-		for (int posicion=0; posicion < CaminoSize; posicion++) {
-				int fila = tablero.obtenerCoordenaX(posicion);
-				int columna = tablero.obtenerCoordenaY(posicion);
-				if (fila == fila_Anterior && columna_Anterior<columna &&columna !=tablero.obtenerCoordenaY(posicion+1) ){
-				
-				botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
-					
-				}
-				else {
-					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
-				}
-				columna_Anterior=columna;
-				fila_Anterior=fila;
+		for (int posicion = 0; posicion < CaminoSize; posicion++) {
+		    int fila = tablero.obtenerCoordenaX(posicion);
+		    int columna = tablero.obtenerCoordenaY(posicion);
+
+		    if (posicion + 1 < CaminoSize) { 
+		        int filaSig = tablero.obtenerCoordenaX(posicion + 1);
+		        int columnaSig = tablero.obtenerCoordenaY(posicion + 1);
+
+		        if ((fila == fila_Anterior && columna_Anterior < columna && columna != columnaSig)
+		            || (fila == filaSig || columna != columnaSig)) {
+
+		            botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
+		        } else {
+		            botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+		        }
+		    } else {
+		        botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+		    }
+
+		    columna_Anterior = columna;
+		    fila_Anterior = fila;
 		}
-		Fondo panel_1 = new Fondo("robotFinal_64.png");
-		panel_1.setBounds(605, 0, 70, 60);
-		panelEstadisticas.add(panel_1);
 	}
 	private ImageIcon CargarYObtenerImagen(String nombre) {
 		return new ImageIcon(TableroUI.class.getResource("/imagenes/"+nombre+".png"));
