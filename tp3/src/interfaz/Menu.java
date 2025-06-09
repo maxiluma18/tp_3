@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import logica.Archivo;
+
 import java.awt.Font;
 
 
@@ -66,11 +69,15 @@ public class Menu extends JFrame {
 		btnGrillaCargar  = new JButton("Cargar Tablero");
 		btnGrillaCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TableroArchivo();
-				setVisible(true);
-				
+				String ruta = Archivo.elegirArchivoDesdeCarpeta("src/archivos");
+				if (ruta != null) {
+					new TableroArchivo(ruta); // pasamos la ruta elegida
+					setVisible(false);
+					dispose();
+				}
 			}
 		});
+
 		btnGrillaAleatoria.setBounds(141, 79, 151, 23);
 		contentPane.add(btnGrillaAleatoria);
 		btnGrillaCargar.setBounds(141, 169, 151, 23);

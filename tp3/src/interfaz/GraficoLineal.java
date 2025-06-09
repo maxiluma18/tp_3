@@ -102,7 +102,6 @@ public class GraficoLineal extends JFrame {
         for (int i = 0; i < tamanios.size(); i++) {
             serieBT.add(tamanios.get(i), tiemposBT.get(i));
             serieFB.add(tamanios.get(i), tiemposFB.get(i));
-            System.out.println(tamanios.get(i));
         }
 
         XYSeriesCollection dataset = new XYSeriesCollection();

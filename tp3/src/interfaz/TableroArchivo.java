@@ -38,8 +38,8 @@ public class TableroArchivo extends JFrame {
 	private Fondo  robotComienzo,robotDestino;
 
 	private static final long serialVersionUID = 1L;
-	public TableroArchivo () {
-		tablero = Archivo.cargarDesdeArchivo("src/archivos/Grilla4x5.txt");
+	public TableroArchivo (String rutaArchivo) {
+		tablero = Archivo.cargarDesdeArchivo(rutaArchivo);
 		random  = new RandomNumeros();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);

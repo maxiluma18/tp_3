@@ -45,6 +45,7 @@ public class TableroUI extends JFrame {
 		 GeneradorGrillaAleatoria aleatoria = new GeneradorGrillaAleatoria();
 		 tablero = aleatoria.generarUnaGrillaAleatoria();
 		
+		 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
