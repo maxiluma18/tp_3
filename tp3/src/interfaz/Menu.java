@@ -66,6 +66,8 @@ public class Menu extends JFrame {
 		btnGrillaCargar  = new JButton("Cargar Tablero");
 		btnGrillaCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new TableroArchivo();
+				setVisible(true);
 				
 			}
 		});

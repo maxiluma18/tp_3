@@ -62,6 +62,7 @@ public class GraficoLineal extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+    
 
     private JFreeChart crear_grafico_lineal(String titulo, String etiqueta_horizontal, String etiqueta_vertical, XYDataset datos) {
     	JFreeChart chart = ChartFactory.createXYLineChart(titulo, etiqueta_horizontal, etiqueta_vertical, datos,

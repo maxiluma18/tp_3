@@ -3,10 +3,12 @@ package interfaz;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.util.List;
-import java.util.Map;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,22 +17,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import logica.SolverAlgoritmos;
-import logica.GeneradorGrillaAleatoria;
-import logica.Posicion;
+
+import logica.Archivo;
 import logica.RandomNumeros;
+import logica.SolverAlgoritmos;
 import logica.SolverRobot;
 import logica.TableroElectronico;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
 
-public class TableroUI extends JFrame {
-
-	private static final long serialVersionUID = 1L;
+public class TableroArchivo extends JFrame {
 	private JPanel contentPane, panelEstadisticas, PanelArriba;
-	private RandomNumeros random;
 	private JButton[][] botones;
+	private RandomNumeros random;
 	private TableroElectronico tablero;
 	private JLabel lblTiempoBT, lblLlamadasBT, lblCaminosBT, lblTiempoFB, lblLlamadasFB, lblCaminosFB;
 	private JButton btnGraficar, btnVolver;
@@ -40,11 +37,10 @@ public class TableroUI extends JFrame {
 	private Graficos grafico;
 	private Fondo  robotComienzo,robotDestino;
 
-	public TableroUI() {
-		 random = new RandomNumeros();
-		 GeneradorGrillaAleatoria aleatoria = new GeneradorGrillaAleatoria();
-		 tablero = aleatoria.generarUnaGrillaAleatoria();
-		
+	private static final long serialVersionUID = 1L;
+	public TableroArchivo () {
+		tablero = Archivo.cargarDesdeArchivo("src/archivos/Grilla4x5.txt");
+		random  = new RandomNumeros();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
@@ -52,103 +48,97 @@ public class TableroUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(4, 4, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-
-
 		// PANEL PARA LOS BOTONES DE ARRIBA
-		PanelArriba = new JPanel();
-		PanelArriba.setLayout(null);
+				PanelArriba = new JPanel();
+				PanelArriba.setLayout(null);
 
-		// aca Seteamos para el tamaño del panel
-		PanelArriba.setPreferredSize(new Dimension(700, 60));
-		contentPane.add(PanelArriba, BorderLayout.NORTH);
+				// aca Seteamos para el tamaño del panel
+				PanelArriba.setPreferredSize(new Dimension(700, 60));
+				contentPane.add(PanelArriba, BorderLayout.NORTH);
 
-		btnGraficar = new JButton("Graficar");
+				btnGraficar = new JButton("Graficar");
 
-		btnGraficar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico_32"));
-		btnGraficar.setIcon(CargarYObtenerImagen("graficoOpaco_32"));
-		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico_32"));
-		btnGraficar.setContentAreaFilled(false); 
-		btnGraficar.setBorderPainted(false);   
-		btnGraficar.setFocusPainted(false); 
-		btnGraficar.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnGraficar.setVerticalAlignment(SwingConstants.BOTTOM);
-		
-		btnGraficar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (grafico == null ) {
-					grafico = new Graficos(TiempoBt, TiempoFB);
-				}
-				grafico.setVisible(true);
+				btnGraficar.setHorizontalTextPosition(SwingConstants.CENTER);
+				btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico_32"));
+				btnGraficar.setIcon(CargarYObtenerImagen("graficoOpaco_32"));
+				btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico_32"));
+				btnGraficar.setContentAreaFilled(false); 
+				btnGraficar.setBorderPainted(false);   
+				btnGraficar.setFocusPainted(false); 
+				btnGraficar.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnGraficar.setVerticalAlignment(SwingConstants.BOTTOM);
 				
-			}
-		});
-		btnGraficar.setBounds(264, 0, 85, 60);
-		PanelArriba.add(btnGraficar);
-		
-		btnVolver = new JButton("Volver");
-		
-		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
-		btnVolver.setIcon(CargarYObtenerImagen("backOpaco_32"));
-		btnVolver.setPressedIcon(CargarYObtenerImagen("back_32"));
-		
-		btnVolver.setContentAreaFilled(false); 
-		btnVolver.setBorderPainted(false);   
-		btnVolver.setFocusPainted(false); 
-		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnVolver.setVerticalAlignment(SwingConstants.BOTTOM);
-		
-		btnVolver.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (grafico != null ) {
-					grafico.dispose(); 
-				}
-				Menu frame = new Menu();
-				frame.setVisible(true);
-				dispose();
-			}
-		});
-		btnVolver.setBounds(350, 0, 85, 60);
-		PanelArriba.add(btnVolver);
-		
-		JLabel CantFilas = new JLabel();
-		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		CantFilas.setBounds(571, 11, 94, 21);
-		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
-		PanelArriba.add(CantFilas);
-		
-		JLabel CantCol = new JLabel("");
-		CantCol.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		CantCol.setBounds(571, 41, 94, 19);
-		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
-		PanelArriba.add(CantCol);
-		
-		robotComienzo = new Fondo("robotComienzoo_64.png");
-		robotComienzo.setBounds(-9, 0, 70, 60);
+				btnGraficar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (grafico == null ) {
+							grafico = new Graficos(TiempoBt, TiempoFB);
+						}
+						grafico.setVisible(true);
+						
+					}
+				});
+				btnGraficar.setBounds(264, 0, 85, 60);
+				PanelArriba.add(btnGraficar);
+				
+				btnVolver = new JButton("Volver");
+				
+				btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+				btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
+				btnVolver.setIcon(CargarYObtenerImagen("backOpaco_32"));
+				btnVolver.setPressedIcon(CargarYObtenerImagen("back_32"));
+				btnVolver.setContentAreaFilled(false); 
+				btnVolver.setBorderPainted(false);   
+				btnVolver.setFocusPainted(false); 
+				btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnVolver.setVerticalAlignment(SwingConstants.BOTTOM);
+				
+				btnVolver.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (grafico != null ) {
+							grafico.dispose(); 
+						}
+						Menu frame = new Menu();
+						frame.setVisible(true);
+						dispose();
+					}
+				});
+				btnVolver.setBounds(350, 0, 85, 60);
+				PanelArriba.add(btnVolver);
+				
+				JLabel CantFilas = new JLabel();
+				CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				CantFilas.setBounds(571, 11, 94, 21);
+				CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
+				PanelArriba.add(CantFilas);
+				
+				JLabel CantCol = new JLabel("");
+				CantCol.setFont(new Font("Tahoma", Font.PLAIN, 16));
+				CantCol.setBounds(571, 41, 94, 19);
+				CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
+				PanelArriba.add(CantCol);
+				
+				robotComienzo = new Fondo("robotComienzoo_64.png");
+				robotComienzo.setBounds(-9, 0, 70, 60);
 
-		PanelArriba.add(robotComienzo);
-		
-		
-		// GRILLA CREACION
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));
-		contentPane.add(panel, BorderLayout.CENTER);
-		setVisible(true);
+				PanelArriba.add(robotComienzo);
+				
+				
+				// GRILLA CREACION
+				JPanel panel = new JPanel();
+				panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));
+				contentPane.add(panel, BorderLayout.CENTER);
+				setVisible(true);
 
-		// BLOQUE ESTADISTICAS CREACION
-		panelEstadisticas = new JPanel();
-		panelEstadisticas.setPreferredSize(new Dimension(700, 60));
-		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
+				// BLOQUE ESTADISTICAS CREACION
+				panelEstadisticas = new JPanel();
+				panelEstadisticas.setPreferredSize(new Dimension(700, 60));
+				contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
 
-		botones = crearTablero(panel, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
+				botones = crearTablero(panel, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
 
 	}
-
 	private JButton[][] crearTablero(JPanel panel, int x, int y) {
 		botones = new JButton[x][y];
-		//tablero.GenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -165,7 +155,6 @@ public class TableroUI extends JFrame {
 		resolverTablero(panelEstadisticas);
 		return botones;
 	}
-
 	private void resolverTablero(JPanel estadisticas) {
 		solverNoPoda = new SolverRobot(tablero);
 		solverNoPoda.resolverFuerzaBruta();
