@@ -42,10 +42,6 @@ public class SolverAlgoritmos {
 			return;
 		}
 
-		// BACKTRACKING:
-		// Lo que hace es que se fija si el total de la suma es mayor a los pasos
-		// restantes, si es asi, corta la
-		// recursividad y no termina
 		if (poda && Math.abs(suma) > pasosRestantes) {
 			caminoActual.remove(caminoActual.size() - ajusteIndice);
 			return;

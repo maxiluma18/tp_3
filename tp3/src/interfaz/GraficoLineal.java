@@ -1,6 +1,8 @@
 package interfaz;
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,8 +14,6 @@ import org.jfree.data.xy.XYSeriesCollection;
 import logica.GeneradorGrillaAleatoria;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

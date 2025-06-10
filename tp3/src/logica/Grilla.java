@@ -15,7 +15,6 @@ public class Grilla {
 		return matriz[fila][columna];
 	}
 
-	//cambiar a clone porque no podemos obtener solo la matriz
 	private int cantFilasGrilla() {
 		return matriz.length;
 	}
