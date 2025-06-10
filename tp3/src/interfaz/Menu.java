@@ -77,8 +77,8 @@ public class Menu extends JFrame {
 		btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TableroUI tablero = new TableroUI(null);
-				tablero.setVisible(true);
+				new TableroUI(null);
+				setVisible(false);
 				dispose();
 			}
 		});
@@ -93,7 +93,7 @@ public class Menu extends JFrame {
 				String ruta = Archivo.elegirArchivoDesdeCarpeta("src/archivos");
 				if (ruta != null) {
 					new TableroUI(ruta); // pasamos la ruta elegida
-					setVisible(false);
+					setVisible(true);
 					dispose();
 				}
 			}

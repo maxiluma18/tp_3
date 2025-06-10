@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -132,6 +133,11 @@ public class TableroUI extends JFrame {
 		if (algoritmoPoda.getCaminosPosibles() > 0) {
 			tablero.elegirCaminoActual(random.darCaminoAleatorio(algoritmoPoda.getCaminosPosibles()));
 			pintarCamino(tablero.CaminoActualTamaño());
+		}else {
+			JOptionPane.showMessageDialog(TableroUI.this, "El Tablero Mostrado No Contiene Ningún Camino Posible","NO CAMINOS POSIBLES", JOptionPane.ERROR_MESSAGE);
+			dispose();
+			Menu menu = new Menu();
+			menu.setVisible(true);
 		}
 	}
 
