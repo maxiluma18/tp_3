@@ -8,14 +8,7 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 public class Archivo {
-	/*
-	 EL ARCHIVO TIENE QUE SER ASI:
-	 linea 1	4;5
-	 linea 2	1;-1;1;-1;1;
-	 linea 3	-1;1;-1;1;-1;
-	 linea 4	1;-1;1;-1;1;
-	 linea 5	-1;1;-1;1;-1;
-	 */
+
 	public static TableroElectronico cargarDesdeArchivo(String rutaArchivo) {
 		TableroElectronico tablero = null;
 		 int x = 0, y = 0;

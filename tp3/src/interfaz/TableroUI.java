@@ -97,6 +97,7 @@ public class TableroUI extends JFrame {
 		
 		PanelArriba.add(robotComienzo);
 		botones = crearTablero(panel, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
+		pack();//lo que hace es q modifica el tamaño segun el tablero
 	}
 
 	private JButton[][] crearTablero(JPanel panel, int x, int y) {

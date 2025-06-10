@@ -6,8 +6,10 @@ import java.util.Random;
 public class RandomNumeros {
 
 private Random random;
+
 //Setear cant max posibles Para tablero
 private int cant=10;
+
 public RandomNumeros(){
 	random = new Random();
 	}
