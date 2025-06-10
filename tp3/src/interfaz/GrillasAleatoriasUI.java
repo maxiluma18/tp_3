@@ -2,17 +2,16 @@ package interfaz;
 
 import java.awt.Window;
 import java.util.List;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 
-public class MostrarGrillasAleatorias extends JFrame {
-	private JPanel contentPane;
-	private int num = 20;
+public class GrillasAleatoriasUI extends JFrame {
+	private static final long serialVersionUID = 1L;
+	//Movimiento De JLabel
+	private int numero = 20;
+	private int suma=30;
+	public GrillasAleatoriasUI(List<Integer> tamanios, List<Double> TiemposBT, List<Double> TiemposFB) {
 
-	public MostrarGrillasAleatorias(List<Integer> tamanios, List<Double> TiemposBT, List<Double> TiemposFB) {
-		contentPane = new JPanel();
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 300);
 		getContentPane().setLayout(null);
 
@@ -21,10 +20,11 @@ public class MostrarGrillasAleatorias extends JFrame {
 					i+1, tamanios.get(i), TiemposBT.get(i), TiemposFB.get(i));
 
 			JLabel lblNewLabel = new JLabel(texto);
-			lblNewLabel.setBounds(20, 20 + num, 700, 14);
+			lblNewLabel.setBounds(20, 20 + numero, 700, 14);
 			getContentPane().add(lblNewLabel);
-			num = num + 30;
+			numero = numero + suma;
 		}
+
 
 	}
 }

@@ -22,6 +22,10 @@ public class GraficoLineal extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JFreeChart _grafico;
+    private List<Integer> tamanios;
+    private List<Double> tiemposBT, tiemposFB;
+    private GrillasAleatoriasUI mg;
+    
     //Nombres JFrame
     private String tituloFrame="Grafico Lineal";
     // Nombre  del titulo y etiquetas
@@ -31,9 +35,7 @@ public class GraficoLineal extends JFrame {
     //Nombre de las comparaciones (vs)
     private String valor_Comparado1="Backtracking";
     private String valor_Comparado2="Fuerza Bruta";
-    private List<Integer> tamanios;
-    private List<Double> tiemposBT, tiemposFB;
-    private MostrarGrillasAleatorias mg;
+   
     public GraficoLineal() {
         setTitle(tituloFrame);       
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);  
@@ -51,7 +53,7 @@ public class GraficoLineal extends JFrame {
         btnMostrarGrillas.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(mg == null) {
-        			mg = new MostrarGrillasAleatorias(tamanios, tiemposBT, tiemposFB);
+        			mg = new GrillasAleatoriasUI(tamanios, tiemposBT, tiemposFB);
         		}
         		mg.setVisible(true);
         	}
@@ -78,8 +80,8 @@ public class GraficoLineal extends JFrame {
         renderer.setSeriesShapesVisible(1, true);
 
        
-        renderer.setSeriesPaint(0, Color.BLACK); 
-        renderer.setSeriesPaint(1, Color.CYAN);  
+        renderer.setSeriesPaint(0, Color.BLUE); 
+        renderer.setSeriesPaint(1, Color.RED);  
 
   
         chart.getXYPlot().setRenderer(renderer);

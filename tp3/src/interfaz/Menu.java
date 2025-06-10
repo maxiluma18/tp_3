@@ -43,21 +43,47 @@ public class Menu extends JFrame {
 	public Menu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 300);
-		
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 14));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-		
-		
-		
-		
-		//ver la imagen de fondo menu y escalarla y corregirla :)
-		contentPane = new Fondo("fondomenu.png");
-	
+		contentPane = new Fondo("fondomenu2.jpg");
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		setearTitutoloFrame();
+		
+		crearBotonGrillaAleatoria();
+		crearBotonGrillaCargar();
+		crearBotonSalir();
+		crearBotonGraficoLineal();
+	}
+
+	private void crearBotonGraficoLineal() {
+		JButton btnGraficoLineal = new JButton("Grafico Lineal ");
+		btnGraficoLineal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GraficoLineal();
+				setVisible(true);
+			
+			}
+		});
+		btnGraficoLineal.setBounds(277, 109, 128, 23);
+		contentPane.add(btnGraficoLineal);
+	}
+
+	private void crearBotonSalir() {
+		btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnSalir.setBounds(10, 230, 134, 23);
+		contentPane.add(btnSalir);
+		setContentPane(contentPane);
+	}
+
+	private void crearBotonGrillaAleatoria() {
 		btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,6 +92,11 @@ public class Menu extends JFrame {
 				dispose();
 			}
 		});
+        btnGrillaAleatoria.setBounds(202, 69, 128, 23);
+		contentPane.add(btnGrillaAleatoria);
+	}
+
+	private void crearBotonGrillaCargar() {
 		btnGrillaCargar  = new JButton("Cargar Tablero");
 		btnGrillaCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,35 +109,14 @@ public class Menu extends JFrame {
 			}
 		});
 
-		btnGrillaAleatoria.setBounds(141, 79, 151, 23);
-		contentPane.add(btnGrillaAleatoria);
-		btnGrillaCargar.setBounds(141, 169, 151, 23);
+		btnGrillaCargar.setBounds(348, 69, 128, 23);
 		contentPane.add(btnGrillaCargar);
-		
+	}
+
+	private void setearTitutoloFrame() {
 		JLabel lblNewJgoodiesTitle = DefaultComponentFactory.getInstance().createTitle("Optimización de la ruta de un robot");
-		lblNewJgoodiesTitle.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 15));
-		lblNewJgoodiesTitle.setBounds(111, 46, 228, 13);
+		lblNewJgoodiesTitle.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 20));
+		lblNewJgoodiesTitle.setBounds(27, -11, 476, 49);
 		contentPane.add(lblNewJgoodiesTitle);
-		
-		 btnSalir = new JButton("Salir");
-		btnSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		btnSalir.setBounds(141, 218, 151, 23);
-		contentPane.add(btnSalir);
-		setContentPane(contentPane);
-		
-		JButton btnGraficoLineal = new JButton("Grafico Lineal ");
-		btnGraficoLineal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new GraficoLineal();
-				setVisible(true);
-			
-			}
-		});
-		btnGraficoLineal.setBounds(141, 124, 151, 23);
-		contentPane.add(btnGraficoLineal);
 	}
 }

@@ -16,7 +16,16 @@ public class Graficos extends JFrame {
 	private double TiempoBT;
 	private double TiempoFB;
 	
-
+	//setear titulos:
+	private String titulo ="Comparativa De Tiempo De Ejecucion De Algoritmos";
+	private String texto_Vertical ="Tiempo De Ejecucion en ms";
+	private String texto_Inferior="Algoritmos";
+	
+	//Nombre De Comparaciones: 
+	private String nombre_1 ="Backtracking";
+	private String nombre_2 ="Fuerza Bruta";
+	
+	
 	public Graficos( double TiempoBt, double TiempoFB) {
 		this.TiempoBT = TiempoBt;
 		this.TiempoFB = TiempoFB;
@@ -25,7 +34,7 @@ public class Graficos extends JFrame {
 		setAlwaysOnTop(true); 
 		toFront();            
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		_grafico = crear_grafico_lineal("Comparativa De Tiempo De Ejecucion De Algoritmos","Algoritmo","Tiempo De Ejecucion en ms");
+		_grafico = crear_grafico_lineal(titulo,texto_Inferior,texto_Vertical);
 		
 		ChartPanel panel =new ChartPanel(_grafico);
 		getContentPane().add(panel);
@@ -44,8 +53,8 @@ public class Graficos extends JFrame {
 
 	    private DefaultCategoryDataset crear_datos() {
 	    	DefaultCategoryDataset  aux =new DefaultCategoryDataset ();
-	    	aux.addValue(TiempoBT, "Backtracking", "BACKTRACKING");
-	    	aux.addValue(TiempoFB, "Fuerza Bruta", "FUERZA BRUTA");
+	    	aux.addValue(TiempoBT, nombre_1, nombre_1);
+	    	aux.addValue(TiempoFB, nombre_2, nombre_2);
 	    	return aux;
 	    }
 	    
