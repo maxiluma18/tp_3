@@ -49,7 +49,7 @@ public class Menu extends JFrame {
 		contentPane = new Fondo("fondoMenu.jpg");
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-		
+		setResizable(false);
 		setearTitutoloFrame();
 		
 		crearBotonGrillaAleatoria();
@@ -64,7 +64,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				new GraficoLineal();
 				setVisible(true);
-			
+			    dispose();
 			}
 		});
 		btnGraficoLineal.setBounds(277, 109, 128, 23);

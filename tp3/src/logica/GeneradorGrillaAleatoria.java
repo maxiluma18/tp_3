@@ -70,15 +70,19 @@ public class GeneradorGrillaAleatoria {
     public TableroElectronico generarUnaGrillaAleatoria() {
     	return unaAleatoria();
     }
-    public List<Integer> getTamanios() {
-        return tamanios;
+    public Integer getTamanios(int i) {
+        return tamanios.get(i);
     }
 
-    public List<Double> getTiemposBacktrack() {
-        return tiemposBacktrack;
+    public Double getTiemposBacktrack(int i) {
+        return tiemposBacktrack.get(i);
     }
 
-    public List<Double> getTiemposFuerzaBruta() {
-        return tiemposFuerzaBruta;
+    public Double getTiemposFuerzaBruta(int i) {
+        return tiemposFuerzaBruta.get(i);
     }
+	public int longuitud() {
+		
+		return tamanios.size() ;
+	}
 }

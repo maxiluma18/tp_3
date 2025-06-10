@@ -1,7 +1,6 @@
 package interfaz;
-
-import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -10,18 +9,22 @@ import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-
 import logica.GeneradorGrillaAleatoria;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GraficoLineal extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFreeChart _grafico;
-	private List<Integer> tamanios;
-	private List<Double> tiemposBT, tiemposFB;
-
+	private GraficoBarra grafico;
+	
+	private String botonVolver="back";
+	private String botonVolverHover="backOscuro";
 	// Nombres JFrame
 	private String tituloFrame = "Grafico Lineal";
 	// Nombre del titulo y etiquetas
@@ -36,18 +39,22 @@ public class GraficoLineal extends JFrame {
 		setTitle(tituloFrame);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setAlwaysOnTop(true);
-
+		setResizable(false);
 		XYDataset datos = crear_datos();
 		_grafico = crear_grafico_lineal(titulo, etiqueta_horizontal, etiqueta_Vertical, datos);
 
 		ChartPanel panel = new ChartPanel(_grafico);
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		panel.setLayout(null);
+		
+		crearBotonVolver(panel);
 
 		pack(); // lo que hace es q modifica el tamaño segun el grafico
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+
+	
 
 	private JFreeChart crear_grafico_lineal(String titulo, String etiqueta_horizontal, String etiqueta_vertical,
 			XYDataset datos) {
@@ -78,13 +85,11 @@ public class GraficoLineal extends JFrame {
 		XYSeries serieBT = new XYSeries(valor_Comparado1);
 		XYSeries serieFB = new XYSeries(valor_Comparado2);
 
-		tamanios = generador.getTamanios();
-		tiemposBT = generador.getTiemposBacktrack();
-		tiemposFB = generador.getTiemposFuerzaBruta();
+		
 
-		for (int i = 0; i < tamanios.size(); i++) {
-			serieBT.add(tamanios.get(i), tiemposBT.get(i));
-			serieFB.add(tamanios.get(i), tiemposFB.get(i));
+		for (int i = 0; i < generador.longuitud(); i++) {
+			serieBT.add(generador.getTamanios(i), generador.getTiemposBacktrack(i));
+			serieFB.add(generador.getTamanios(i), generador.getTiemposFuerzaBruta(i));
 		}
 
 		XYSeriesCollection dataset = new XYSeriesCollection();
@@ -93,5 +98,37 @@ public class GraficoLineal extends JFrame {
 
 		return dataset;
 	}
+	private void crearBotonVolver(ChartPanel panel) {
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVolver.setRolloverIcon(CargarYObtenerImagen(botonVolver));
+		btnVolver.setIcon(CargarYObtenerImagen(botonVolverHover));
+		btnVolver.setPressedIcon(CargarYObtenerImagen(botonVolver));
 
+		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setFocusPainted(false);
+		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVolver.setVerticalAlignment(SwingConstants.BOTTOM);
+
+		btnVolver.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				if (grafico != null) {
+					grafico.dispose();
+				}
+				Menu frame = new Menu();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnVolver.setBounds(-12, 360, 85,60 );
+		panel.add(btnVolver);
+	}
+	
+	//CARGAR ICONOS EN BOTONES
+		private ImageIcon CargarYObtenerImagen(String nombre) {
+			return new ImageIcon(TableroUI.class.getResource("/imagenes/" + nombre + ".png"));
+		}
 }

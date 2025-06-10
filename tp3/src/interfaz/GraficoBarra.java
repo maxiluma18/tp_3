@@ -2,7 +2,6 @@ package interfaz;
 
 
 import javax.swing.JFrame;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -34,6 +33,7 @@ public class GraficoBarra extends JFrame {
 		setAlwaysOnTop(true); 
 		toFront();            
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		_grafico = crear_grafico_lineal(titulo,texto_Inferior,texto_Vertical);
 		
 		ChartPanel panel =new ChartPanel(_grafico);

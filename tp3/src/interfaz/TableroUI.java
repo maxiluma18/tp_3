@@ -63,7 +63,7 @@ public class TableroUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
-		
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(4, 4, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -77,20 +77,9 @@ public class TableroUI extends JFrame {
 		PanelArriba.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(PanelArriba, BorderLayout.NORTH);
 		
-		
-		
-		
-		
-		
 		crearBotonGraficar();
 		crearBotonVolver();
 		mostrarCantFilasyCols();
-		
-		
-		
-		
-		
-		
 		
 		// GRILLA CREACION
 		JPanel panel = new JPanel();
@@ -102,12 +91,11 @@ public class TableroUI extends JFrame {
 		panelEstadisticas = new JPanel();
 		panelEstadisticas.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(panelEstadisticas, BorderLayout.SOUTH);
-
+		
 		robotComienzo = new Fondo(rutaImagenComienzo);
 		robotComienzo.setBounds(-9, 0, 70, 60);
 		
 		PanelArriba.add(robotComienzo);
-		
 		botones = crearTablero(panel, tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero());
 	}
 
