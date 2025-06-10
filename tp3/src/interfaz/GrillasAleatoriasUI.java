@@ -1,5 +1,6 @@
 package interfaz;
 
+import java.awt.Color;
 import java.awt.Window;
 import java.util.List;
 import javax.swing.JFrame;
@@ -11,7 +12,7 @@ public class GrillasAleatoriasUI extends JFrame {
 	private int numero = 20;
 	private int suma=30;
 	public GrillasAleatoriasUI(List<Integer> tamanios, List<Double> TiemposBT, List<Double> TiemposFB) {
-
+		setContentPane(new Fondo("fondoGrilla.jpg"));
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 300);
 		getContentPane().setLayout(null);
 
@@ -20,6 +21,7 @@ public class GrillasAleatoriasUI extends JFrame {
 					i+1, tamanios.get(i), TiemposBT.get(i), TiemposFB.get(i));
 
 			JLabel lblNewLabel = new JLabel(texto);
+			lblNewLabel.setForeground(Color.BLACK);
 			lblNewLabel.setBounds(20, 20 + numero, 700, 14);
 			getContentPane().add(lblNewLabel);
 			numero = numero + suma;

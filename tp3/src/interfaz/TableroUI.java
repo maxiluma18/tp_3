@@ -66,9 +66,9 @@ public class TableroUI extends JFrame {
 		btnGraficar = new JButton("Graficar");
 
 		btnGraficar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico_32"));
-		btnGraficar.setIcon(CargarYObtenerImagen("graficoOpaco_32"));
-		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico_32"));
+		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico"));
+		btnGraficar.setIcon(CargarYObtenerImagen("graficoOscuro"));
+		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico"));
 		btnGraficar.setContentAreaFilled(false);
 		btnGraficar.setBorderPainted(false);
 		btnGraficar.setFocusPainted(false);
@@ -90,9 +90,9 @@ public class TableroUI extends JFrame {
 		btnVolver = new JButton("Volver");
 
 		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
-		btnVolver.setIcon(CargarYObtenerImagen("backOpaco_32"));
-		btnVolver.setPressedIcon(CargarYObtenerImagen("back_32"));
+		btnVolver.setRolloverIcon(CargarYObtenerImagen("back"));
+		btnVolver.setIcon(CargarYObtenerImagen("backOscuro"));
+		btnVolver.setPressedIcon(CargarYObtenerImagen("back"));
 
 		btnVolver.setContentAreaFilled(false);
 		btnVolver.setBorderPainted(false);
@@ -125,7 +125,7 @@ public class TableroUI extends JFrame {
 		CantCol.setText("Columnas:" + tablero.cantCaminosVertTablero());
 		PanelArriba.add(CantCol);
 
-		robotComienzo = new Fondo("robotComienzoo_64.png");
+		robotComienzo = new Fondo("robotComienzo.png");
 		robotComienzo.setBounds(-9, 0, 70, 60);
 
 		PanelArriba.add(robotComienzo);
@@ -223,18 +223,18 @@ public class TableroUI extends JFrame {
 				if ((fila == fila_Anterior && columna_Anterior < columna && columna != columnaSig)
 						|| (fila == filaSig || columna != columnaSig)) {
 
-					botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
+					botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha"));
 				} else {
-					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas"));
 				}
 			} else {
-				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas"));
 			}
 
 			columna_Anterior = columna;
 			fila_Anterior = fila;
 		}
-		robotDestino = new Fondo("robotFinal_64.png");
+		robotDestino = new Fondo("robotFinal.png");
 		robotDestino.setBounds(605, 0, 70, 60);
 		panelEstadisticas.add(robotDestino);
 	}
