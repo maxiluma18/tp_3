@@ -9,7 +9,6 @@ public class Fondo extends JPanel {
 	private Image fondo;
 
 	public Fondo(String nombreImagen) {
-
 		ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/" + nombreImagen));
 		fondo = icono.getImage();
 	}

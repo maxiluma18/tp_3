@@ -16,6 +16,11 @@ public class GrillasAleatoriasUI extends JFrame {
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 300);
 		getContentPane().setLayout(null);
 
+		cargarLabelPorGrilla(tamanios, TiemposBT, TiemposFB);
+
+
+	}
+	private void cargarLabelPorGrilla(List<Integer> tamanios, List<Double> TiemposBT, List<Double> TiemposFB) {
 		for (int i = 0; i < tamanios.size(); i++) {
 			String texto = String.format("Datos de la grilla %d: Longitud de la grilla (x+y): %d; Su tiempo de BT fue de: %.5f; Su tiempo de FB fue de: %.5f",
 					i+1, tamanios.get(i), TiemposBT.get(i), TiemposFB.get(i));
@@ -26,7 +31,5 @@ public class GrillasAleatoriasUI extends JFrame {
 			getContentPane().add(lblNewLabel);
 			numero = numero + suma;
 		}
-
-
 	}
 }
