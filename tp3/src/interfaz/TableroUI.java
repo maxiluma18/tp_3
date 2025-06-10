@@ -36,7 +36,7 @@ public class TableroUI extends JFrame {
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solverPoda, solverNoPoda;
 	private SolverAlgoritmos algoritmoPoda, algoritmoNoPoda;
-	private Graficos grafico;
+	private GraficoBarra grafico;
 	private Fondo robotComienzo, robotDestino;
 	//Imagenes fondo 
 	private String rutaImagenComienzo="robotComienzo.png";
@@ -49,6 +49,9 @@ public class TableroUI extends JFrame {
 	private String botonVolverHover="backOscuro";
 	private String botonGraficar="grafico";
 	private String botonGraficarHover="graficoOscuro";
+	
+	
+	
 	public TableroUI(String rutaArchivo) {
 		random = new RandomNumeros();
 		if (rutaArchivo == null) {
@@ -74,9 +77,20 @@ public class TableroUI extends JFrame {
 		PanelArriba.setPreferredSize(new Dimension(700, 60));
 		contentPane.add(PanelArriba, BorderLayout.NORTH);
 		
+		
+		
+		
+		
+		
 		crearBotonGraficar();
 		crearBotonVolver();
 		mostrarCantFilasyCols();
+		
+		
+		
+		
+		
+		
 		
 		// GRILLA CREACION
 		JPanel panel = new JPanel();
@@ -232,7 +246,7 @@ public class TableroUI extends JFrame {
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (grafico == null) {
-					grafico = new Graficos(TiempoBt, TiempoFB);
+					grafico = new GraficoBarra(TiempoBt, TiempoFB);
 				}
 				grafico.setVisible(true);
 

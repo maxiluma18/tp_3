@@ -9,7 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class Graficos extends JFrame {
+public class GraficoBarra extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFreeChart _grafico;
@@ -26,7 +26,7 @@ public class Graficos extends JFrame {
 	private String nombre_2 ="Fuerza Bruta";
 	
 	
-	public Graficos( double TiempoBt, double TiempoFB) {
+	public GraficoBarra( double TiempoBt, double TiempoFB) {
 		this.TiempoBT = TiempoBt;
 		this.TiempoFB = TiempoFB;
 		new JFrame();
