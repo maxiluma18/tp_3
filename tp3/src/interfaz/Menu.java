@@ -87,8 +87,8 @@ public class Menu extends JFrame {
 		btnGrillaAleatoria = new JButton("Tablero Aleatorio");
 		btnGrillaAleatoria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new TableroUI();
-				setVisible(true);
+				TableroUI tablero = new TableroUI(null);
+				tablero.setVisible(true);
 				dispose();
 			}
 		});
@@ -97,12 +97,12 @@ public class Menu extends JFrame {
 	}
 
 	private void crearBotonGrillaCargar() {
-		btnGrillaCargar  = new JButton("Cargar Tablero");
+		btnGrillaCargar = new JButton("Cargar Tablero");
 		btnGrillaCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String ruta = Archivo.elegirArchivoDesdeCarpeta("src/archivos");
 				if (ruta != null) {
-					new TableroArchivo(ruta); // pasamos la ruta elegida
+					new TableroUI(ruta); // pasamos la ruta elegida
 					setVisible(false);
 					dispose();
 				}

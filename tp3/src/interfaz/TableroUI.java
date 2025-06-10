@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Window;
-import java.util.List;
-import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,8 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import logica.SolverAlgoritmos;
+import logica.Archivo;
 import logica.GeneradorGrillaAleatoria;
-import logica.Posicion;
 import logica.RandomNumeros;
 import logica.SolverRobot;
 import logica.TableroElectronico;
@@ -36,16 +34,19 @@ public class TableroUI extends JFrame {
 	private JButton btnGraficar, btnVolver;
 	private double TiempoBt, TiempoFB;
 	private SolverRobot solverPoda, solverNoPoda;
-	private SolverAlgoritmos algoritmoPoda,algoritmoNoPoda;
+	private SolverAlgoritmos algoritmoPoda, algoritmoNoPoda;
 	private Graficos grafico;
-	private Fondo  robotComienzo,robotDestino;
+	private Fondo robotComienzo, robotDestino;
 
-	public TableroUI() {
-		 random = new RandomNumeros();
-		 GeneradorGrillaAleatoria aleatoria = new GeneradorGrillaAleatoria();
-		 tablero = aleatoria.generarUnaGrillaAleatoria();
-		
-		 
+	public TableroUI(String rutaArchivo) {
+		random = new RandomNumeros();
+		if (rutaArchivo == null) {
+			GeneradorGrillaAleatoria aleatoria = new GeneradorGrillaAleatoria();
+			tablero = aleatoria.generarUnaGrillaAleatoria();
+		} else {
+			tablero = Archivo.cargarDesdeArchivo(rutaArchivo);
+		}
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(Window.HEIGHT / 3, Window.WIDTH / 3, 700, 500);
 		setLocationRelativeTo(null);
@@ -53,8 +54,6 @@ public class TableroUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(4, 4, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-
-
 
 		// PANEL PARA LOS BOTONES DE ARRIBA
 		PanelArriba = new JPanel();
@@ -70,41 +69,41 @@ public class TableroUI extends JFrame {
 		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico_32"));
 		btnGraficar.setIcon(CargarYObtenerImagen("graficoOpaco_32"));
 		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico_32"));
-		btnGraficar.setContentAreaFilled(false); 
-		btnGraficar.setBorderPainted(false);   
-		btnGraficar.setFocusPainted(false); 
+		btnGraficar.setContentAreaFilled(false);
+		btnGraficar.setBorderPainted(false);
+		btnGraficar.setFocusPainted(false);
 		btnGraficar.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnGraficar.setVerticalAlignment(SwingConstants.BOTTOM);
-		
+
 		btnGraficar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (grafico == null ) {
+				if (grafico == null) {
 					grafico = new Graficos(TiempoBt, TiempoFB);
 				}
 				grafico.setVisible(true);
-				
+
 			}
 		});
 		btnGraficar.setBounds(264, 0, 85, 60);
 		PanelArriba.add(btnGraficar);
-		
+
 		btnVolver = new JButton("Volver");
-		
+
 		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnVolver.setRolloverIcon(CargarYObtenerImagen("back_32"));
 		btnVolver.setIcon(CargarYObtenerImagen("backOpaco_32"));
 		btnVolver.setPressedIcon(CargarYObtenerImagen("back_32"));
-		
-		btnVolver.setContentAreaFilled(false); 
-		btnVolver.setBorderPainted(false);   
-		btnVolver.setFocusPainted(false); 
+
+		btnVolver.setContentAreaFilled(false);
+		btnVolver.setBorderPainted(false);
+		btnVolver.setFocusPainted(false);
 		btnVolver.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnVolver.setVerticalAlignment(SwingConstants.BOTTOM);
-		
+
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (grafico != null ) {
-					grafico.dispose(); 
+				if (grafico != null) {
+					grafico.dispose();
 				}
 				Menu frame = new Menu();
 				frame.setVisible(true);
@@ -113,25 +112,24 @@ public class TableroUI extends JFrame {
 		});
 		btnVolver.setBounds(350, 0, 85, 60);
 		PanelArriba.add(btnVolver);
-		
+
 		JLabel CantFilas = new JLabel();
 		CantFilas.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CantFilas.setBounds(571, 11, 94, 21);
-		CantFilas.setText("Filas:"+ tablero.cantCaminosHorTablero());
+		CantFilas.setText("Filas:" + tablero.cantCaminosHorTablero());
 		PanelArriba.add(CantFilas);
-		
+
 		JLabel CantCol = new JLabel("");
 		CantCol.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		CantCol.setBounds(571, 41, 94, 19);
-		CantCol.setText("Columnas:"+ tablero.cantCaminosVertTablero());
+		CantCol.setText("Columnas:" + tablero.cantCaminosVertTablero());
 		PanelArriba.add(CantCol);
-		
+
 		robotComienzo = new Fondo("robotComienzoo_64.png");
 		robotComienzo.setBounds(-9, 0, 70, 60);
 
 		PanelArriba.add(robotComienzo);
-		
-		
+
 		// GRILLA CREACION
 		JPanel panel = new JPanel();
 		panel.setLayout(new GridLayout(tablero.cantCaminosHorTablero(), tablero.cantCaminosVertTablero(), 0, 0));
@@ -149,11 +147,11 @@ public class TableroUI extends JFrame {
 
 	private JButton[][] crearTablero(JPanel panel, int x, int y) {
 		botones = new JButton[x][y];
-		//tablero.GenerarYSetearValoresAleatorios(x, y, random);
+		// tablero.GenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
-				botones[i][j] = new JButton(String.valueOf(tablero.obtenerValorTablero(i, j)));	
+				botones[i][j] = new JButton(String.valueOf(tablero.obtenerValorTablero(i, j)));
 				botones[i][j].setFont(new Font("Arial", Font.BOLD, 13));
 				botones[i][j].setForeground(Color.BLACK);
 				botones[i][j].setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
@@ -172,17 +170,16 @@ public class TableroUI extends JFrame {
 		solverNoPoda.resolverFuerzaBruta();
 		algoritmoNoPoda = solverNoPoda.obtenerSolver();
 		TiempoFB = algoritmoNoPoda.obtenerTiempoEjecucionAlgoritmo();
-		
-		
+
 		lblTiempoFB = new JLabel("⏰ Tiempo de FuerzaBruta: " + TiempoFB + " ms");
 		lblTiempoFB.setBounds(325, 5, 246, 14);
 		estadisticas.add(lblTiempoFB);
-		
-		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " +  algoritmoNoPoda.getLlamadasRecursivas());
+
+		lblLlamadasFB = new JLabel("Llamadas recursivas de FuerzaBruta: " + algoritmoNoPoda.getLlamadasRecursivas());
 		lblLlamadasFB.setBounds(325, 21, 288, 14);
 		estadisticas.add(lblLlamadasFB);
-		
-		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: "+  algoritmoNoPoda.getCaminosPosibles());
+
+		lblCaminosFB = new JLabel("Caminos posibles de FuerzaBruta: " + algoritmoNoPoda.getCaminosPosibles());
 		lblCaminosFB.setBounds(325, 35, 251, 14);
 		estadisticas.add(lblCaminosFB);
 
@@ -191,58 +188,58 @@ public class TableroUI extends JFrame {
 		algoritmoPoda = solverPoda.obtenerSolver();
 		TiempoBt = algoritmoPoda.obtenerTiempoEjecucionAlgoritmo();
 		estadisticas.setLayout(null);
-		
+
 		lblTiempoBT = new JLabel("⏰ Tiempo de BackTracking: " + TiempoBt + " ms");
 		lblTiempoBT.setBounds(23, 5, 265, 14);
 		estadisticas.add(lblTiempoBT);
-		
+
 		lblLlamadasBT = new JLabel("Llamadas recursivas de BackTracking: " + algoritmoPoda.getLlamadasRecursivas());
 		lblLlamadasBT.setBounds(23, 21, 307, 14);
 		estadisticas.add(lblLlamadasBT);
-		
+
 		lblCaminosBT = new JLabel("Caminos posibles de BackTracking: " + algoritmoPoda.getCaminosPosibles());
 		lblCaminosBT.setBounds(23, 35, 307, 14);
 		estadisticas.add(lblCaminosBT);
-		
+
 		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
 		if (algoritmoPoda.getCaminosPosibles() > 0) {
 			tablero.elegirCaminoActual(random.darCaminoAleatorio(algoritmoPoda.getCaminosPosibles()));
 			pintarCamino(tablero.CaminoActualTamaño());
 		}
 
-		
 	}
 
 	private void pintarCamino(int CaminoSize) {
-		int fila_Anterior=0;
-		int columna_Anterior=0;
+		int fila_Anterior = 0;
+		int columna_Anterior = 0;
 		for (int posicion = 0; posicion < CaminoSize; posicion++) {
-		    int fila = tablero.obtenerCoordenaX(posicion);
-		    int columna = tablero.obtenerCoordenaY(posicion);
+			int fila = tablero.obtenerCoordenaX(posicion);
+			int columna = tablero.obtenerCoordenaY(posicion);
 
-		    if (posicion + 1 < CaminoSize) { 
-		        int filaSig = tablero.obtenerCoordenaX(posicion + 1);
-		        int columnaSig = tablero.obtenerCoordenaY(posicion + 1);
+			if (posicion + 1 < CaminoSize) {
+				int filaSig = tablero.obtenerCoordenaX(posicion + 1);
+				int columnaSig = tablero.obtenerCoordenaY(posicion + 1);
 
-		        if ((fila == fila_Anterior && columna_Anterior < columna && columna != columnaSig)
-		            || (fila == filaSig || columna != columnaSig)) {
+				if ((fila == fila_Anterior && columna_Anterior < columna && columna != columnaSig)
+						|| (fila == filaSig || columna != columnaSig)) {
 
-		            botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
-		        } else {
-		            botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
-		        }
-		    } else {
-		        botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
-		    }
-		    
-		    columna_Anterior = columna;
-		    fila_Anterior = fila;
+					botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha_32"));
+				} else {
+					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+				}
+			} else {
+				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas_32"));
+			}
+
+			columna_Anterior = columna;
+			fila_Anterior = fila;
 		}
 		robotDestino = new Fondo("robotFinal_64.png");
 		robotDestino.setBounds(605, 0, 70, 60);
 		panelEstadisticas.add(robotDestino);
 	}
+
 	private ImageIcon CargarYObtenerImagen(String nombre) {
-		return new ImageIcon(TableroUI.class.getResource("/imagenes/"+nombre+".png"));
+		return new ImageIcon(TableroUI.class.getResource("/imagenes/" + nombre + ".png"));
 	}
 }
