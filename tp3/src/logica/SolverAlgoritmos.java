@@ -10,12 +10,14 @@ import java.util.Map;
 public class SolverAlgoritmos {
 
 	private int llamadasRecursivas;
-	private int ajusteIndice = 1;
-	private double tiempoMilisegundos = 1_000_000.0;
+	
 	private long tiempoInicio, tiempoFinal;
 	private List<Posicion> caminoActual;
 	private Map<Integer, List<Posicion>> caminosValidos;
 	private boolean poda;
+	//Setear: 
+	private int ajusteIndice = 1;
+	private double tiempoMilisegundos = 1_000_000.0;
 
 	public SolverAlgoritmos() {
 		caminoActual = new ArrayList<Posicion>();

@@ -37,7 +37,15 @@ public class TableroUI extends JFrame {
 	private SolverAlgoritmos algoritmoPoda, algoritmoNoPoda;
 	private Graficos grafico;
 	private Fondo robotComienzo, robotDestino;
-
+//Imagenes 
+	private String rutaImagenComienzo="robotComienzo.png";
+	private String rutaImagenFinal="robotFinal.png";
+	private String pasos="huellas";
+	private String pasosDerecha="huellasDerecha";
+	private String botonVolver="back";
+	private String botonVolverHover="backOscuro";
+	private String botonGraficar="grafico";
+	private String botonGraficarHover="graficoOscuro";
 	public TableroUI(String rutaArchivo) {
 		random = new RandomNumeros();
 		if (rutaArchivo == null) {
@@ -66,9 +74,9 @@ public class TableroUI extends JFrame {
 		btnGraficar = new JButton("Graficar");
 
 		btnGraficar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnGraficar.setRolloverIcon(CargarYObtenerImagen("grafico"));
-		btnGraficar.setIcon(CargarYObtenerImagen("graficoOscuro"));
-		btnGraficar.setPressedIcon(CargarYObtenerImagen("grafico"));
+		btnGraficar.setRolloverIcon(CargarYObtenerImagen(botonGraficar));
+		btnGraficar.setIcon(CargarYObtenerImagen(botonGraficarHover));
+		btnGraficar.setPressedIcon(CargarYObtenerImagen(botonGraficar));
 		btnGraficar.setContentAreaFilled(false);
 		btnGraficar.setBorderPainted(false);
 		btnGraficar.setFocusPainted(false);
@@ -90,9 +98,9 @@ public class TableroUI extends JFrame {
 		btnVolver = new JButton("Volver");
 
 		btnVolver.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVolver.setRolloverIcon(CargarYObtenerImagen("back"));
-		btnVolver.setIcon(CargarYObtenerImagen("backOscuro"));
-		btnVolver.setPressedIcon(CargarYObtenerImagen("back"));
+		btnVolver.setRolloverIcon(CargarYObtenerImagen(botonVolver));
+		btnVolver.setIcon(CargarYObtenerImagen(botonVolverHover));
+		btnVolver.setPressedIcon(CargarYObtenerImagen(botonVolver));
 
 		btnVolver.setContentAreaFilled(false);
 		btnVolver.setBorderPainted(false);
@@ -125,7 +133,7 @@ public class TableroUI extends JFrame {
 		CantCol.setText("Columnas:" + tablero.cantCaminosVertTablero());
 		PanelArriba.add(CantCol);
 
-		robotComienzo = new Fondo("robotComienzo.png");
+		robotComienzo = new Fondo(rutaImagenComienzo);
 		robotComienzo.setBounds(-9, 0, 70, 60);
 
 		PanelArriba.add(robotComienzo);
@@ -147,7 +155,6 @@ public class TableroUI extends JFrame {
 
 	private JButton[][] crearTablero(JPanel panel, int x, int y) {
 		botones = new JButton[x][y];
-		// tablero.GenerarYSetearValoresAleatorios(x, y, random);
 
 		for (int i = 0; i < x; i++) {
 			for (int j = 0; j < y; j++) {
@@ -223,18 +230,18 @@ public class TableroUI extends JFrame {
 				if ((fila == fila_Anterior && columna_Anterior < columna && columna != columnaSig)
 						|| (fila == filaSig || columna != columnaSig)) {
 
-					botones[fila][columna].setIcon(CargarYObtenerImagen("huellasDerecha"));
+					botones[fila][columna].setIcon(CargarYObtenerImagen(pasosDerecha));
 				} else {
-					botones[fila][columna].setIcon(CargarYObtenerImagen("huellas"));
+					botones[fila][columna].setIcon(CargarYObtenerImagen(pasos));
 				}
 			} else {
-				botones[fila][columna].setIcon(CargarYObtenerImagen("huellas"));
+				botones[fila][columna].setIcon(CargarYObtenerImagen(pasos));
 			}
 
 			columna_Anterior = columna;
 			fila_Anterior = fila;
 		}
-		robotDestino = new Fondo("robotFinal.png");
+		robotDestino = new Fondo(rutaImagenFinal);
 		robotDestino.setBounds(605, 0, 70, 60);
 		panelEstadisticas.add(robotDestino);
 	}
