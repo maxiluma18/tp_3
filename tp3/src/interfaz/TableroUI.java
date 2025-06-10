@@ -38,9 +38,11 @@ public class TableroUI extends JFrame {
 	private SolverAlgoritmos algoritmoPoda, algoritmoNoPoda;
 	private Graficos grafico;
 	private Fondo robotComienzo, robotDestino;
-	//Imagenes 
+	//Imagenes fondo 
 	private String rutaImagenComienzo="robotComienzo.png";
 	private String rutaImagenFinal="robotFinal.png";
+	// ImageIcon 
+	private String robotNoCamino="robot-SinCamino";
 	private String pasos="huellas";
 	private String pasosDerecha="huellasDerecha";
 	private String botonVolver="back";
@@ -129,12 +131,12 @@ public class TableroUI extends JFrame {
 		
 		cargarEstadisticasBT(estadisticas);
 
-		// Printear de color verde u otro, el correcto, SOLO el PRIMERO de FB(O BT)
 		if (algoritmoPoda.getCaminosPosibles() > 0) {
 			tablero.elegirCaminoActual(random.darCaminoAleatorio(algoritmoPoda.getCaminosPosibles()));
 			pintarCamino(tablero.CaminoActualTamaño());
 		}else {
-			JOptionPane.showMessageDialog(TableroUI.this, "El Tablero Mostrado No Contiene Ningún Camino Posible","NO CAMINOS POSIBLES", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(TableroUI.this, "El Tablero Mostrado No Contiene Ningún Camino Posible",
+					"NO CAMINOS POSIBLES", JOptionPane.ERROR_MESSAGE, CargarYObtenerImagen(robotNoCamino));
 			dispose();
 			Menu menu = new Menu();
 			menu.setVisible(true);
