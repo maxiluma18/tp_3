@@ -1,6 +1,6 @@
 # Robot en Grilla 🤖
 
-Aplicación de escritorio en Java con interfaz gráfica en la que un robot se desplaza por una grilla buscando [describí el objetivo: por ejemplo, el recorrido óptimo según las reglas del enunciado]. Permite comparar distintos algoritmos de resolución y ver estadísticas de cada ejecución.
+Aplicación de escritorio en Java con interfaz gráfica en la que un robot se desplaza por una grilla buscando el camino optimo. Permite comparar distintos algoritmos de resolución y ver estadísticas de cada ejecución.
 
 ## Funcionalidades
 
